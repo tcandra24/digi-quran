@@ -4,14 +4,15 @@
       <v-btn icon dark @click.stop="close">
         <v-icon>mdi-close</v-icon>
       </v-btn>
+      <v-toolbar-title>All Tasks</v-toolbar-title>
     </v-toolbar>
 
       <v-container fluid>
         <div v-if="count===0">
           <v-alert
             outlined
-            color="warning"
-            icon="mdi-cart-off"
+            color="error"
+            icon="mdi-trash-can"
           >
             Task Kosong!
           </v-alert>
@@ -20,16 +21,21 @@
           <template v-for="(task, index) in allTask">
             <v-list-item :key="'task'+index">
               <v-list-item-content>
-                <v-list-item-title v-html="task.nama"></v-list-item-title>
+                <v-list-item-title v-html="task.nama" class="headline"></v-list-item-title>
                 <v-list-item-subtitle>
                   Ayat Ke {{ task.ayat }}
-                  <span style="float:right;">
-                    <v-btn icon small rounded depressed @click="linkTo(task.nomor)">
-                      <v-icon dark color="success">mdi-link</v-icon>
-                    </v-btn>
-                  </span>
                 </v-list-item-subtitle>
               </v-list-item-content>
+              <v-list-item-action class="mr-5">
+                <v-btn icon small rounded depressed @click="removeTask(task)">
+                  <v-icon dark color="error">mdi-close-circle</v-icon>
+                </v-btn>
+              </v-list-item-action>
+              <v-list-item-action>
+                  <v-btn icon small rounded depressed @click="linkTo(task.nomor)">
+                    <v-icon dark color="success">mdi-link</v-icon>
+                  </v-btn>
+              </v-list-item-action>
             </v-list-item>
           </template>  
         </v-list>
@@ -37,7 +43,7 @@
   </v-card>
 </template>
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 export default {
   name: 'tasks',
   props: {
@@ -56,7 +62,10 @@ export default {
     linkTo(nomorAyat) {
       this.close()
       this.$router.push({path: "/surah/" + nomorAyat})
-    }
+    },
+    ...mapActions({
+      removeTask: 'reading/removing',
+    })
   }
 }
 </script>

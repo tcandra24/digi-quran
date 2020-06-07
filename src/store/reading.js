@@ -20,6 +20,10 @@ export default {
         ayat: value.ayat,
         jmlAyat: value.jmlAyat
       })
+    },
+    remove: (state, value) => {
+      let idx = state.readSurah.indexOf(value)
+      state.readSurah.splice(idx, 1)
     }
   },
   actions: {
@@ -33,6 +37,9 @@ export default {
     },
     update: ({ commit }, value) => {
       commit('update', value)
+    },
+    removing: ({ commit }, value) => {
+      commit('remove', value)
     } 
   },
   getters: {

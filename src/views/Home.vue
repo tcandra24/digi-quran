@@ -3,7 +3,11 @@
     <v-container class="ma-0 pa-2" grid-list-sm v-if="AllSurah">
       <v-layout wrap>
         <v-flex v-for="(surah, index) in AllSurah.slice(0, items)" :key="`surah-`+index" md>
-          <v-card :to="'/surah/'+surah.nomor">
+          <v-card 
+            :to="'/surah/'+surah.nomor"
+            outlined
+            hover
+          >
             
             <v-card-title
               class="fill-height align-end"
