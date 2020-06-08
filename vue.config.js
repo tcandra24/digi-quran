@@ -2,6 +2,6 @@ module.exports = {
   "transpileDependencies": [
     "vuetify"
   ],
-  publicPath: "",
+  publicPath: "/digi-quran/",
   outputDir: "docs"
 }
