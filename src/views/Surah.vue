@@ -19,21 +19,51 @@
       <v-card-text>
         Ayat ke - {{ this.ayat }} 
         <br>
-        <p
-          v-html="isiAyatAr.teks"
-          class="text-center headline"
-        >  
-        </p>
-        <p
-          v-html="isiAyatId.teks"
-          class="text-center"
-        >  
-        </p>
-        <br>
-        <p
-          v-text="isiAyatArti.teks"
-          class="text-center"
-        ></p>
+        <v-sheet
+          class="px-3 pt-3 pb-3"
+          v-if="loadingNextPrevBtn"
+        >
+          <v-skeleton-loader
+            ref="skeleton"
+            type="text"
+            class="mx-auto"
+          ></v-skeleton-loader>
+          <v-skeleton-loader
+            ref="skeleton"
+            type="text"
+            class="mx-auto"
+          ></v-skeleton-loader>
+          <v-skeleton-loader
+            ref="skeleton"
+            type="text"
+            class="mx-auto"
+          ></v-skeleton-loader>
+          <br>
+          <v-skeleton-loader
+            ref="skeleton"
+            type="text"
+            class="mx-auto"
+          ></v-skeleton-loader>
+        </v-sheet>
+        <div
+          v-else
+        >
+          <p
+            v-html="isiAyatAr.teks"
+            class="text-center headline"
+          >  
+          </p>
+          <p
+            v-html="isiAyatId.teks"
+            class="text-center"
+          >  
+          </p>
+          <br>
+          <p
+            v-text="isiAyatArti.teks"
+            class="text-center"
+          ></p>
+        </div>
       </v-card-text>
       <v-card-text>
         <v-btn
@@ -54,6 +84,7 @@
             color="primary"
             @click="prev"
             :disabled="disablePrev"
+            :loading="loadingNextPrevBtn"
           >Prev</v-btn>
         </v-col>
         <v-spacer></v-spacer>
@@ -75,6 +106,7 @@
             color="primary"
             @click="next"
             :disabled="disableNext"
+            :loading="loadingNextPrevBtn"
           >Next</v-btn>
         </v-col>
       </v-card-actions>
@@ -101,7 +133,8 @@ export default {
     disableNext: false,
     timerMode: false,
     timer: 0,
-    maxTimer: 30
+    maxTimer: 30,
+    loadingNextPrevBtn: false
   }),
   computed: {
     ...mapGetters({
@@ -150,25 +183,28 @@ export default {
       url = encodeURI(url)
       this.axios.get(url)
       .then((response) => {
-        let data = response.data
-        this.detailAyat = data.surat
-        this.isiAyatAr = data.ayat.data.ar[0]
-        this.isiAyatId = data.ayat.data.idt[0]
-        this.isiAyatArti = data.ayat.data.id[0]
-        if(!checkItem){
-          let value = {
-            nomor: this.detailAyat.nomor,
-            nama: this.detailAyat.nama,
-            ayat: this.ayat,
-            jmlAyat: this.detailAyat.ayat
+        if(response){
+          this.loadingNextPrevBtn = false
+          let data = response.data
+          this.detailAyat = data.surat
+          this.isiAyatAr = data.ayat.data.ar[0]
+          this.isiAyatId = data.ayat.data.idt[0]
+          this.isiAyatArti = data.ayat.data.id[0]
+          if(!checkItem){
+            let value = {
+              nomor: this.detailAyat.nomor,
+              nama: this.detailAyat.nama,
+              ayat: this.ayat,
+              jmlAyat: this.detailAyat.ayat
+            }
+
+            this.add(value)
           }
 
-          this.add(value)
+          this.setTitle({
+            text: this.detailAyat.nama
+          })
         }
-
-        this.setTitle({
-          text: this.detailAyat.nama
-        })
 
       })
       .catch((responses) => {
@@ -189,6 +225,7 @@ export default {
 
     },
     next() {
+      this.loadingNextPrevBtn = true
       this.change({
         nomor: this.detailAyat.nomor,
         nama: this.detailAyat.nama,
@@ -198,6 +235,7 @@ export default {
       this.go()
     },
     prev() {
+      this.loadingNextPrevBtn = true
       this.change({
         nomor: this.detailAyat.nomor,
         nama: this.detailAyat.nama,
