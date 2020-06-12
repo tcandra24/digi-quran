@@ -17,7 +17,9 @@
       </v-card-text>
       <v-divider></v-divider>
       <v-card-text>
-        Ayat ke - {{ this.ayat }} 
+        <p class="mb-5">
+          Ayat ke - {{ ayat }} / {{ detailAyat.ayat }}
+        </p>
         <br>
         <v-sheet
           class="px-3 pt-3 pb-3"
@@ -167,6 +169,7 @@ export default {
     ...mapActions({
       add: 'reading/add',
       change: 'reading/update',
+      setAlert: 'alert/set',
       setTitle: 'set'
     }),
     go() {
@@ -197,12 +200,16 @@ export default {
               ayat: this.ayat,
               jmlAyat: this.detailAyat.ayat
             }
-
             this.add(value)
           }
 
           this.setTitle({
             text: this.detailAyat.nama
+          })
+
+          this.setAlert({
+            color: 'success',
+            text: this.ayat < this.detailAyat.ayat ? `Anda masih menyelesaikan ${this.ayat} dari ${this.detailAyat.ayat} ayat` : `Selamat anda menyelesaikan surat ${this.detailAyat.nama}` 
           })
         }
 

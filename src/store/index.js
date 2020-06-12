@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import VuexPersist from 'vuex-persist'
 import reading from '@/store/reading'
+import alert from '@/store/alert'
 
 const persistVuex = new VuexPersist({
   key: 'digiquran-data',
@@ -29,6 +30,7 @@ export default new Vuex.Store({
     title: state => state.title
   },
   modules: {
-    reading
+    reading,
+    alert
   }
 })

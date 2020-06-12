@@ -62,6 +62,8 @@
       <v-toolbar-title>{{ titleSurah }}</v-toolbar-title>
     </v-app-bar>
 
+    <alert />
+
     <v-content>
       <v-container
         class="fill-height"
@@ -92,7 +94,8 @@
       source: String,
     },
     components: {
-      Tasks: () => import('@/components/Tasks.vue')
+      Tasks: () => import('@/components/Tasks.vue'),
+      Alert: () => import('@/components/Alert.vue'),
     },
     data: () => ({
       drawer: false,
@@ -108,7 +111,7 @@
       },
       ...mapGetters({
         titleSurah: 'title',
-        count: 'reading/count'
+        count: 'reading/count',
       })
     },
     methods: {

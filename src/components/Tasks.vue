@@ -21,21 +21,33 @@
           <template v-for="(task, index) in allTask">
             <v-list-item :key="'task'+index">
               <v-list-item-content>
-                <v-list-item-title v-html="task.nama" class="headline"></v-list-item-title>
+                <v-list-item-title class="headline">
+                  {{ task.nama }} 
+                  <v-icon v-if="parseInt(task.ayat) === parseInt(task.jmlAyat)" dark color="success">mdi-checkbox-marked-circle-outline</v-icon>
+                </v-list-item-title>
                 <v-list-item-subtitle>
-                  Ayat Ke {{ task.ayat }}
+                  Ayat Ke {{ task.ayat }} / {{ task.jmlAyat }}
                 </v-list-item-subtitle>
               </v-list-item-content>
-              <v-list-item-action class="mr-5">
-                <v-btn icon small rounded depressed @click="removeTask(task)">
-                  <v-icon dark color="error">mdi-close-circle</v-icon>
-                </v-btn>
-              </v-list-item-action>
-              <v-list-item-action>
-                  <v-btn icon small rounded depressed @click="linkTo(task.nomor)">
-                    <v-icon dark color="success">mdi-link</v-icon>
+              <div v-if="task.ayat < task.jmlAyat">
+                <v-list-item-action class="mr-5">
+                  <v-btn icon small rounded depressed @click="removeTask(task)">
+                    <v-icon dark color="error">mdi-close-circle</v-icon>
                   </v-btn>
-              </v-list-item-action>
+                </v-list-item-action>
+                <v-list-item-action>
+                    <v-btn icon small rounded depressed @click="linkTo(task.nomor)">
+                      <v-icon dark color="success">mdi-link</v-icon>
+                    </v-btn>
+                </v-list-item-action>
+              </div>
+              <div v-else>
+                <v-list-item-action class="mr-5">
+                  <v-btn icon small rounded depressed @click="removeTask(task)">
+                    <v-icon dark color="error">mdi-close-circle</v-icon>
+                  </v-btn>
+                </v-list-item-action>
+              </div>
             </v-list-item>
           </template>  
         </v-list>

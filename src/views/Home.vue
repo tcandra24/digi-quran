@@ -2,13 +2,25 @@
   <div>
     <v-container class="ma-0 pa-2" grid-list-sm v-if="AllSurah">
       <v-layout wrap>
+        <!-- <template>
+          <v-row align="center" justify="center" class="mb-10">
+            <v-img
+              src="https://cdn.vuetifyjs.com/images/parallax/material2.jpg"
+              lazy-src="https://cdn.vuetifyjs.com/images/parallax/material2.jpg"
+              aspect-ratio="1"
+              class="grey lighten-2"
+              max-width="600"
+              max-height="300"
+            >
+            </v-img>
+          </v-row>
+        </template> -->
         <v-flex v-for="(surah, index) in AllSurah.slice(0, items)" :key="`surah-`+index" md>
           <v-card 
             :to="'/surah/'+surah.nomor"
             outlined
             hover
           >
-            
             <v-card-title
               class="fill-height align-end"
             >
@@ -44,7 +56,7 @@
 
 <script>
 // @ is an alias to /src
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'Home',
   components: {},
@@ -70,8 +82,24 @@ export default {
       this.items += 10
     },
     ...mapActions({
-      setTitle: 'set'
+      setTitle: 'set',
+      setAlert: 'alert/set',
     })
+  },
+  computed: {
+    ...mapGetters({
+      text: 'alert/text',
+      color: 'alert/color'
+    })
+  },
+  mounted() {
+    if(this.$route.path === '/' && this.text !== '' ){
+      this.setAlert({
+        status: true,
+        color: this.color,
+        text: this.text
+      })
+    }
   }
 }
 </script>
