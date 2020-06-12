@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-snackbar v-model="alert" :color="color" multi-line bottom>
+    <v-snackbar v-model="alert" :color="color" multi-line top>
       {{ text }}
       <v-btn dark text @click="close">
         <v-icon>mdi-close-circle</v-icon>
