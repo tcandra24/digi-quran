@@ -1,21 +1,8 @@
 <template>
   <div>
-    <v-container class="ma-0 pa-2" grid-list-sm v-if="AllSurah">
+    <v-container class="ma-0 pa-2" grid-list-sm v-if="surat">
       <v-layout wrap>
-        <!-- <template>
-          <v-row align="center" justify="center" class="mb-10">
-            <v-img
-              src="https://cdn.vuetifyjs.com/images/parallax/material2.jpg"
-              lazy-src="https://cdn.vuetifyjs.com/images/parallax/material2.jpg"
-              aspect-ratio="1"
-              class="grey lighten-2"
-              max-width="600"
-              max-height="300"
-            >
-            </v-img>
-          </v-row>
-        </template> -->
-        <v-flex v-for="(surah, index) in AllSurah.slice(0, items)" :key="`surah-`+index" md>
+        <v-flex v-for="(surah, index) in surat.slice(0, items)" :key="`surah-`+index" md>
           <v-card 
             :to="'/surah/'+surah.nomor"
             outlined
@@ -45,7 +32,7 @@
           text
           color="indigo"
           @click="more()"
-          v-if="AllSurah.length > items"
+          v-if="surat.length > items"
         >
           More..
         </v-btn>
@@ -61,19 +48,22 @@ export default {
   name: 'Home',
   components: {},
   data: () => ({
-    AllSurah: [],
     items: 20
   }),
   created() {
-    this.axios.get('/surat')
-    .then((response) => {
-      let { hasil } = response.data
-      this.AllSurah = hasil
-    })
-    .catch((responses) => {
-      let { error } = responses
-      console.log = error
-    })
+    if (this.surat.length > 0){
+      this.AllSurah = this.surat
+    } else {
+      this.axios.get('/surat')
+      .then((response) => {
+        let { hasil } = response.data
+        this.setSurat(hasil)
+      })
+      .catch((responses) => {
+        let { error } = responses
+        console.log = error
+      })
+    }
 
     this.setTitle({})
   },
@@ -84,12 +74,14 @@ export default {
     ...mapActions({
       setTitle: 'set',
       setAlert: 'alert/set',
+      setSurat: 'addSurat'
     })
   },
   computed: {
     ...mapGetters({
       text: 'alert/text',
-      color: 'alert/color'
+      color: 'alert/color',
+      surat: 'surat'
     })
   },
   mounted() {

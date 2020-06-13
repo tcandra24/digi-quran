@@ -5,7 +5,15 @@
         v-model="drawer"
         app
       >
-        <v-list shaped>
+        <v-img :aspect-ratio="16/9" src="https://cdn.vuetifyjs.com/images/parallax/material.jpg">
+          <!-- <v-row align="end" class="lightbox white--text pa-2 fill-height">
+            <v-col>
+              <div class="subheading">Jonathan Lee</div>
+              <div class="body-1">heyfromjonathan@gmail.com</div>
+            </v-col>
+          </v-row> -->
+        </v-img>
+        <v-list>
           <v-list-item 
             link
             v-for="(item, index) in menus"
@@ -34,7 +42,7 @@
 
       <v-spacer></v-spacer>
 
-      <v-btn icon @click="dialog = true">
+      <v-btn icon @click="setDialogComponent('tasks')">
         <div v-if="count>0">
           <v-badge color="orange" overlap>
             <template v-slot:badge>
@@ -48,6 +56,17 @@
         </div>
         
       </v-btn>
+      <v-text-field 
+        slot="extension"
+        hide-details
+        append-icon="mdi-arrow-right"
+        flat
+        label="Search"
+        prepend-inner-icon="mdi-magnify"
+        solo-inverted
+        class="mb-3"
+        @click="setDialogComponent('search')"
+      ></v-text-field>
     </v-app-bar>
 
     <v-app-bar
@@ -74,9 +93,11 @@
        </v-slide-y-transition>
       </v-container>
 
-      <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
-        <tasks :closeDialog="closeDialog" />
-      </v-dialog>
+      <keep-alive>
+        <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
+          <component :is="currentComponent" @closed="setDialogStatus"></component>
+        </v-dialog>
+      </keep-alive>
     </v-content>
     <v-footer
       color="indigo"
@@ -88,7 +109,7 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
+  import { mapGetters, mapActions } from 'vuex'
   export default {
     props: {
       source: String,
@@ -96,13 +117,13 @@
     components: {
       Tasks: () => import('@/components/Tasks.vue'),
       Alert: () => import('@/components/Alert.vue'),
+      Search: () => import('@/components/Search.vue')
     },
     data: () => ({
       drawer: false,
-      dialog: false,
       menus: [
-        { title: 'Home', icon: 'mdi-home', route: '/' },
-        { title: 'About', icon: 'mdi-help-box', route: '/about' }
+        { title: 'Home', icon: 'mdi-home-outline', route: '/' },
+        { title: 'About', icon: 'mdi-information-outline', route: '/about' }
       ]
     }),
     computed: {
@@ -112,12 +133,23 @@
       ...mapGetters({
         titleSurah: 'title',
         count: 'reading/count',
-      })
+        dialogStatus : 'dialog/status',
+        currentComponent : 'dialog/component'
+      }),
+      dialog: {
+        get () {
+          return this.dialogStatus
+        },
+        set (value) {
+          this.setDialogStatus(value)
+        }
+      }
     },
     methods: {
-      closeDialog (value) {
-        this.dialog = value
-      }
+      ...mapActions({
+        setDialogStatus: 'dialog/setStatus',
+        setDialogComponent : 'dialog/setComponent',
+      })
     }
   }
 </script>

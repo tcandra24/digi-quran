@@ -13,8 +13,8 @@
       <v-card-text class="text-justify">
         Saya membuat aplikasi ini bertujuan untuk
         sarana bagi umat muslim dalam membaca kitab suci Al-Quran di manapun berada jika tidak membawa
-        Al-Quran, aplikasi ini menggunakan Teknologi Vue JS, Vuex, Vue Router, Vuetify. Harapan saya kedepan aplikasi ini
-        dapat menjadi aplikasi yang dapat membantu kita dalam membaca/menghafal Al-Quran. 
+        Al-Quran, aplikasi ini menggunakan Teknologi Vue JS, Vuex, Vue Router, Vuetify Dan Aplikasi ini didukung oleh API https://api.banghasan.com/. 
+        Harapan saya kedepan aplikasi ini dapat menjadi aplikasi yang dapat membantu kita dalam membaca/menghafal Al-Quran. 
       </v-card-text>
       <v-divider></v-divider>
       <v-card-text class="text-justify">

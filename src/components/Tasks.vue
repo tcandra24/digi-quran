@@ -58,9 +58,6 @@
 import { mapGetters, mapActions } from 'vuex'
 export default {
   name: 'tasks',
-  props: {
-    closeDialog: Function
-  },
   computed: {
     ...mapGetters({
       allTask: 'reading/readSurah',
@@ -69,7 +66,7 @@ export default {
   },
   methods: {
     close() {
-      this.closeDialog(false)
+      this.$emit('closed', false)
     },
     linkTo(nomorAyat) {
       this.close()
