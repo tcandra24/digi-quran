@@ -140,7 +140,9 @@ export default {
   }),
   computed: {
     ...mapGetters({
-      readSurah: 'reading/readSurah'
+      readSurah: 'reading/readSurah',
+      dialogStatus : 'dialog/status',
+      currentComponent : 'dialog/component'
     })
   },
   watch: {
@@ -170,7 +172,8 @@ export default {
       add: 'reading/add',
       change: 'reading/update',
       setAlert: 'alert/set',
-      setTitle: 'set'
+      setTitle: 'set',
+      setDialogStatus: 'dialog/setStatus',
     }),
     go() {
       let { id } = this.$route.params
@@ -263,6 +266,9 @@ export default {
     }
   },
   created() {
+    if (this.dialogStatus === true && this.currentComponent === 'search'){
+      this.setDialogStatus(false)
+    }
     this.go()
   }
 }

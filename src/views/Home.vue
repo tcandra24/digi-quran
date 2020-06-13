@@ -65,6 +65,14 @@ export default {
       })
     }
 
+    if(this.$route.path === '/' && this.text !== '' ){
+      this.setAlert({
+        status: true,
+        color: this.color,
+        text: this.text
+      })
+    }
+
     this.setTitle({})
   },
   methods: {
@@ -84,14 +92,5 @@ export default {
       surat: 'surat'
     })
   },
-  mounted() {
-    if(this.$route.path === '/' && this.text !== '' ){
-      this.setAlert({
-        status: true,
-        color: this.color,
-        text: this.text
-      })
-    }
-  }
 }
 </script>
