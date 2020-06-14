@@ -85,27 +85,27 @@ export default {
     items: 20,
     itemImages: [
       {
-        src: '/img/view-1.jpg',
+        src: '/digi-quran/img/view-1.jpg',
         quote: 'Sesungguhnya Kami telah memberikan kepadamu nikmat yang banyak',
         from: 'QS Al-Kautsar : 1'
       },
       {
-        src: '/img/view-2.jpg',
+        src: '/digi-quran/img/view-2.jpg',
         quote: 'Maka nikmat Tuhanmu yang manakah yang kamu dustakan?',
         from: 'QS Ar-Rahman : 13'
       },
       {
-        src: '/img/view-3.jpg',
+        src: '/digi-quran/img/view-3.jpg',
         quote: 'Sesungguhnya pada pertukaran malam dan siang itu dan pada apa yang diciptakan Allah di langit dan di bumi, benar-benar terdapat tanda-tanda (kekuasaan-Nya) bagi orang-orang yang bertakwa.',
         from: 'QS Yunus : 6'
       },
       {
-        src: '/img/view-4.jpg',
+        src: '/digi-quran/img/view-4.jpg',
         quote: 'Sungguh kami ciptakan manusia itu pada perwujudan yang lebih baik.',
         from: 'QS At-Tin : 4'
       },
       {
-        src: '/img/view-5.jpg',
+        src: '/digi-quran/img/view-5.jpg',
         quote: 'Dan sesungguhnya telah Kami muliakan anak cucu Adam, Kami angkat mereka di daratan dan di lautan, Kami beri mereka rizki yang baik-baik dan Kami lebihkan mereka dengan kelebihan yang sempurna atas kebanyakan mahluk-mahluk yang telah Kami ciptakan.',
         from: 'QS Al-Isra : 70'
       },
