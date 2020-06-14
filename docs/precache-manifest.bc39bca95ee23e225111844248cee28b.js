@@ -44,7 +44,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/digi-quran/img/view-5.jpg"
   },
   {
-    "revision": "da8115660b944ec4e52d7fd24a10ac60",
+    "revision": "1a91d0c051b1f681cadb4434bdc7d006",
     "url": "/digi-quran/index.html"
   },
   {
@@ -52,8 +52,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/digi-quran/js/about.866f44e9.js"
   },
   {
-    "revision": "e9047e653b835e969633",
-    "url": "/digi-quran/js/app.e36d1345.js"
+    "revision": "5257dfb98f967ae1aec4",
+    "url": "/digi-quran/js/app.a8346d96.js"
   },
   {
     "revision": "e08b76f6f0bc96f64bd3",
