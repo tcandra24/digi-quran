@@ -109,7 +109,8 @@ export default {
         quote: 'Dan sesungguhnya telah Kami muliakan anak cucu Adam, Kami angkat mereka di daratan dan di lautan, Kami beri mereka rizki yang baik-baik dan Kami lebihkan mereka dengan kelebihan yang sempurna atas kebanyakan mahluk-mahluk yang telah Kami ciptakan.',
         from: 'QS Al-Isra : 70'
       },
-    ]
+    ],
+    isActive: false
   }),
   created() {
     if (this.surat.length > 0){

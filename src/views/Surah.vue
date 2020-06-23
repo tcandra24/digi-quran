@@ -46,6 +46,12 @@
             type="text"
             class="mx-auto"
           ></v-skeleton-loader>
+          <br>
+          <v-skeleton-loader
+            ref="skeleton"
+            type="text"
+            class="mx-auto"
+          ></v-skeleton-loader>
         </v-sheet>
         <div
           v-else
@@ -81,15 +87,24 @@
         </v-btn>
       </v-card-text>
       <v-card-actions>
-        <v-col>
-          <v-btn
-            color="primary"
-            @click="prev"
-            :disabled="disablePrev"
-            :loading="loadingNextPrevBtn"
-          >Prev</v-btn>
-        </v-col>
-        <v-spacer></v-spacer>
+        <!-- <v-col>
+          For button before move
+        </v-col> -->
+        <v-btn
+          color="indigo"
+          dark
+          @click="prev"
+          v-show="disablePrev"
+          :loading="loadingNextPrevBtn"
+          fab
+          bottom
+          left
+        >
+        <v-icon>
+          mdi-arrow-left
+        </v-icon>
+        </v-btn>
+        <!-- <v-spacer></v-spacer> -->
         <v-col class="text-center">
           <v-progress-circular
             :rotate="360"
@@ -102,15 +117,23 @@
             {{ timer }}
           </v-progress-circular>
         </v-col>
-        <v-spacer></v-spacer>
-        <v-col class="text-right">
-          <v-btn
-            color="primary"
-            @click="next"
-            :disabled="disableNext"
-            :loading="loadingNextPrevBtn"
-          >Next</v-btn>
-        </v-col>
+        <!-- <v-spacer></v-spacer> -->
+        <!-- <v-col class="text-right">
+        </v-col> -->
+        <v-btn
+          color="indigo"
+          dark
+          @click="next"
+          v-show="disableNext"
+          :loading="loadingNextPrevBtn"
+          fab
+          bottom
+          right
+        >
+        <v-icon>
+          mdi-arrow-right
+        </v-icon>
+        </v-btn>
       </v-card-actions>
     </v-card>
     <!-- <v-skeleton-loader
@@ -209,10 +232,16 @@ export default {
           this.setTitle({
             text: this.detailAyat.nama
           })
+          let alertMessage = ``
+          if(this.ayat < this.detailAyat.ayat) {
+            alertMessage = `Anda masih menyelesaikan ${this.ayat} dari ${this.detailAyat.ayat} ayat surat ${this.detailAyat.nama}`
+          } else {
+            alertMessage = `Selamat anda menyelesaikan surat ${this.detailAyat.nama}` 
+          }
 
           this.setAlert({
             color: 'success',
-            text: this.ayat < this.detailAyat.ayat ? `Anda masih menyelesaikan ${this.ayat} dari ${this.detailAyat.ayat} ayat` : `Selamat anda menyelesaikan surat ${this.detailAyat.nama}` 
+            text: alertMessage
           })
         }
 
@@ -223,14 +252,14 @@ export default {
       })
 
       if(this.ayat === 1){
-        this.disablePrev = true
-        this.disableNext = false
-      }else if (this.ayat === parseInt(checkItem.jmlAyat)){
         this.disablePrev = false
         this.disableNext = true
-      } else {
-        this.disablePrev = false
+      }else if (this.ayat === parseInt(checkItem.jmlAyat)){
+        this.disablePrev = true
         this.disableNext = false
+      } else {
+        this.disablePrev = true
+        this.disableNext = true
       }
 
     },
