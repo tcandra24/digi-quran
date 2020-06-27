@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-container class="ma-0 pa-2" grid-list-sm>
+    <v-container fluid>
       <v-layout wrap>
         <v-flex md>
           <v-card>
