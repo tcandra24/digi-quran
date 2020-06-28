@@ -59,7 +59,7 @@
         Asmaul Husna <v-icon color="indigo">mdi-chevron-right</v-icon>
       </div>
       <v-divider></v-divider>
-      <v-layout wrap>
+      <v-layout wrap class="pt-5">
         <v-flex md>
           <v-card>
             <template>
@@ -67,15 +67,15 @@
                 cycle
                 delimiter-icon="mdi-minus"
                 hide-delimiter-background
-                interval="5000"
+                interval="4000"
                 :show-arrows="false"
                 height="150"
-                class="pt-5"
               >
                 <v-carousel-item
                   v-for="(a ,i) in asmaul_husna.slice(0, 7)"
                   :key="i"
                   :aspect-ratio="16/9"
+                  @click="setDialogComponent('asmaul-husna')"
                 >
                   <v-sheet height="100%" color="primary">
                     <v-row 
@@ -92,6 +92,7 @@
                 </v-carousel-item>
                 <v-carousel-item
                   :aspect-ratio="16/9"
+                  @click="setDialogComponent('asmaul-husna')"
                 >
                   <v-sheet height="100%" color="primary">
                     <v-row 
@@ -99,10 +100,7 @@
                       justify="center" 
                     >
                       <div class="subtitle-1 text-center">
-                        <v-btn @click="setDialogComponent('asmaul-husna')" text>
-                          Selengkapnya <v-icon>mdi-arrow-right-circle-outline</v-icon>
-                        </v-btn>
-                        
+                        Selengkapnya <v-icon>mdi-arrow-right-circle-outline</v-icon>
                       </div>
                     </v-row>
                   </v-sheet>
