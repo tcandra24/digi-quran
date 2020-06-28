@@ -24,6 +24,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/digi-quran/css/chunk-vendors.d3e76936.css"
   },
   {
+    "revision": "95062a6ba2e490beff8365a5fdf2056b",
+    "url": "/digi-quran/img/loader.gif"
+  },
+  {
     "revision": "59038683262c846cc2680e96067e6578",
     "url": "/digi-quran/img/view-1.jpg"
   },
@@ -44,7 +48,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/digi-quran/img/view-5.jpg"
   },
   {
-    "revision": "338ac3100613affbeb504dda87fc4116",
+    "revision": "46110c5150b1249ddf932d1d21482dba",
     "url": "/digi-quran/index.html"
   },
   {
@@ -52,8 +56,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/digi-quran/js/about.866f44e9.js"
   },
   {
-    "revision": "ae6554ddf179e794f5ac",
-    "url": "/digi-quran/js/app.8c9c56b0.js"
+    "revision": "ea9bc37e0d31f76a6d49",
+    "url": "/digi-quran/js/app.97d72e87.js"
   },
   {
     "revision": "5c3ff20b3dfc7e97f2b0",
