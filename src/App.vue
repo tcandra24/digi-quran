@@ -117,7 +117,8 @@
     components: {
       Tasks: () => import('@/components/Tasks.vue'),
       Alert: () => import('@/components/Alert.vue'),
-      Search: () => import('@/components/Search.vue')
+      Search: () => import('@/components/Search.vue'),
+      AsmaulHusna: () => import('@/components/AsmaulHusna.vue')
     },
     data: () => ({
       drawer: false,

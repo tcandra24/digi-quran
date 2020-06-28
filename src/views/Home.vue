@@ -17,7 +17,7 @@
                   :key="i"
                   :aspect-ratio="16/9"
                 >
-                  <v-sheet height="100%">
+                  <v-sheet height="100%" color="primary">
                       <v-img 
                         :src="`${imageUrl}/${item.src}`"
                         :aspect-ratio="16/9"
@@ -42,7 +42,7 @@
                           v-else
                           >
                           <div class="subtitle-1 text-justify">
-                            <div class="display-2">Loading...</div>
+                            <div class="display-1">Loading...</div>
                           </div>
                         </v-row>
                       </v-img>
@@ -54,9 +54,72 @@
         </v-flex>
       </v-layout>
     </v-container>
-    <v-container class="ma-0 pa-2" grid-list-sm v-if="surat">
+    <v-container fluid>
+      <div class="text-left indigo--text">
+        Asmaul Husna <v-icon color="indigo">mdi-chevron-right</v-icon>
+      </div>
+      <v-divider></v-divider>
       <v-layout wrap>
-        <v-flex v-for="(surah, index) in surat.slice(0, items)" :key="`surah-`+index" md>
+        <v-flex md>
+          <v-card>
+            <template>
+              <v-carousel
+                cycle
+                delimiter-icon="mdi-minus"
+                hide-delimiter-background
+                interval="5000"
+                :show-arrows="false"
+                height="150"
+                class="pt-5"
+              >
+                <v-carousel-item
+                  v-for="(a ,i) in asmaul_husna.slice(0, 7)"
+                  :key="i"
+                  :aspect-ratio="16/9"
+                >
+                  <v-sheet height="100%" color="primary">
+                    <v-row 
+                      class="fill-height pt-5"
+                      justify="center"
+                    >
+                      <div class="subtitle-1 text-center">
+                        {{ a.latin }} ({{ a.arab }})
+                        <br> 
+                        {{ a.arti }} 
+                      </div>
+                    </v-row>
+                  </v-sheet>
+                </v-carousel-item>
+                <v-carousel-item
+                  :aspect-ratio="16/9"
+                >
+                  <v-sheet height="100%" color="primary">
+                    <v-row 
+                      class="fill-height pt-5"
+                      justify="center" 
+                    >
+                      <div class="subtitle-1 text-center">
+                        <v-btn @click="setDialogComponent('asmaul-husna')" text>
+                          Selengkapnya <v-icon>mdi-arrow-right-circle-outline</v-icon>
+                        </v-btn>
+                        
+                      </div>
+                    </v-row>
+                  </v-sheet>
+                </v-carousel-item>
+              </v-carousel>
+            </template>
+          </v-card>
+        </v-flex>
+      </v-layout>
+    </v-container>
+    <v-container class="ma-0 pa-2" grid-list-sm v-if="surat">
+      <div class="text-left indigo--text">
+        Semua Surat <v-icon color="indigo">mdi-chevron-right</v-icon>
+      </div>
+      <v-divider></v-divider>
+      <v-layout wrap>
+        <v-flex v-for="(surah, index) in surat.slice(0, items)" :key="`surah-`+index" md class="pt-5">
           <v-card 
             :to="'/surah/'+surah.nomor"
             outlined
@@ -98,11 +161,12 @@
 <script>
 // @ is an alias to /src
 import { mapActions, mapGetters } from 'vuex'
+import asmaulHusna from '@/data/asmaul-husna'
 export default {
   name: 'Home',
-  components: {},
   data: () => ({
     items: 20,
+    asmaul_husna: asmaulHusna,
     itemImages: [
       {
         src: 'view-1.jpg',
@@ -169,14 +233,15 @@ export default {
     ...mapActions({
       setTitle: 'set',
       setAlert: 'alert/set',
-      setSurat: 'addSurat'
-    })
+      setSurat: 'addSurat',
+      setDialogComponent : 'dialog/setComponent',
+    }),
   },
   computed: {
     ...mapGetters({
       text: 'alert/text',
       color: 'alert/color',
-      surat: 'surat'
+      surat: 'surat',
     })
   },
 }

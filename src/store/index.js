@@ -16,7 +16,7 @@ export default new Vuex.Store({
   plugins:[persistVuex.plugin],
   state: {
     title: '',
-    surat: []
+    surat: [],
   },
   mutations: {
     set: (state, value) => {
@@ -36,7 +36,7 @@ export default new Vuex.Store({
   },
   getters: {
     title: state => state.title,
-    surat: state => state.surat
+    surat: state => state.surat,
   },
   modules: {
     reading,

@@ -4,7 +4,7 @@
         <v-btn icon dark @click.stop="close">
           <v-icon>mdi-close</v-icon>
         </v-btn>
-        <v-toolbar-title>All Tasks</v-toolbar-title>
+        <v-toolbar-title>Semua Tasks</v-toolbar-title>
       </v-toolbar>
 
         <v-container fluid>
@@ -23,7 +23,7 @@
                 <v-list-item-content>
                   <v-list-item-title class="headline">
                     {{ task.nama }} 
-                    <v-icon v-if="parseInt(task.ayat) === parseInt(task.jmlAyat)" dark color="success">mdi-checkbox-marked-circle-outline</v-icon>
+                    <v-icon v-if="parseInt(task.ayat) === parseInt(task.jmlAyat)" dark color="success">mdi-check-outline</v-icon>
                   </v-list-item-title>
                   <v-list-item-subtitle>
                     Ayat Ke {{ task.ayat }} / {{ task.jmlAyat }}
