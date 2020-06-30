@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/digi-quran/precache-manifest.bf3d20e4fc8a78f8b9e64a8be58aa2fc.js"
+  "/digi-quran/precache-manifest.0f4e67d763b3252df2a6103dbe4d99ca.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "digi-quran"});

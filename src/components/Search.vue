@@ -38,15 +38,15 @@
               <v-card-title
                 class="fill-height align-end"
               >
-                {{ surah.nama }} ( {{ surah.asma }} )
+                {{ surah.nomor }} .{{ surah.nama }} ( {{ surah.asma }} )
               </v-card-title>
               <v-card-subtitle
-                v-text="surah.arti"
+                v-text="artiSurah(surah.arti)"
               ></v-card-subtitle>
               <v-card-actions>
                 <v-icon>mdi-book</v-icon>
                 <span class="grey--text">
-                  Surat Ke - {{ surah.nomor }}
+                  {{ firstUpper(surah.type) }}
                 </span>
               </v-card-actions>
             </v-card>
@@ -58,8 +58,10 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
+import { artiFilter } from '@/mixins/artiFilter'
 export default {
   name: 'search',
+  mixins:[artiFilter],
   data: () => ({
     keyword: '',
     getSurat: [],

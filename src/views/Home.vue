@@ -113,7 +113,7 @@
     </v-container>
     <v-container class="ma-0 pa-2" grid-list-sm v-if="surat">
       <div class="text-left indigo--text">
-        Semua Surat <v-icon color="indigo">mdi-chevron-right</v-icon>
+        Semua Surat ({{ totalSurah }})  <v-icon color="indigo">mdi-chevron-right</v-icon>
       </div>
       <v-divider></v-divider>
       <v-layout wrap>
@@ -126,15 +126,15 @@
             <v-card-title
               class="fill-height align-end"
             >
-              {{ surah.nama }} ( {{ surah.asma }} )
+              {{ surah.nomor }} . {{ surah.nama }} ( {{ surah.asma }} )
             </v-card-title>
             <v-card-subtitle
-              v-text="surah.arti"
+              v-text="artiSurah(surah.arti)"
             ></v-card-subtitle>
             <v-card-actions>
               <v-icon>mdi-book</v-icon>
               <span class="grey--text">
-                Surat Ke - {{ surah.nomor }}
+                {{ firstUpper(surah.type) }}
               </span>
             </v-card-actions>
           </v-card>
@@ -160,8 +160,11 @@
 // @ is an alias to /src
 import { mapActions, mapGetters } from 'vuex'
 import asmaulHusna from '@/data/asmaul-husna'
+import { artiFilter } from '@/mixins/artiFilter'
+
 export default {
   name: 'Home',
+  mixins:[artiFilter],
   data: () => ({
     items: 20,
     asmaul_husna: asmaulHusna,
@@ -240,7 +243,10 @@ export default {
       text: 'alert/text',
       color: 'alert/color',
       surat: 'surat',
-    })
+    }),
+    totalSurah(){
+      return this.surat.length
+    }
   },
 }
 </script>
