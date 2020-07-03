@@ -8,7 +8,7 @@
         {{ detailAyat.nama }} ({{ detailAyat.asma }})
       </v-card-title>
       <v-card-subtitle
-        v-text="detailAyat.arti"
+        v-text="artiSurah(detailAyat.arti)"
       ></v-card-subtitle>
       <v-card-text
         v-html="detailAyat.keterangan"
@@ -146,6 +146,8 @@
 </template>
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import { artiFilter } from '@/mixins/artiFilter'
+
 export default {
   data: () => ({
     surah: {},
@@ -161,6 +163,7 @@ export default {
     maxTimer: 30,
     loadingNextPrevBtn: false
   }),
+  mixins:[artiFilter],
   computed: {
     ...mapGetters({
       readSurah: 'reading/readSurah',
