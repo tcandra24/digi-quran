@@ -16,7 +16,7 @@ export default new Vuex.Store({
   plugins:[persistVuex.plugin],
   state: {
     title: '',
-    surat: [],
+    surat: []
   },
   mutations: {
     set: (state, value) => {
@@ -24,6 +24,24 @@ export default new Vuex.Store({
     },
     addSurat: (state, value) => {
       state.surat = value
+    },
+    setKet: (state, value) => {
+      let index = state.surat.find(data => data.nomor == value)
+      // console.log(index)
+      state.surat.splice(value - 1, 1, {
+        arti: index.arti,
+        asma: index.asma,
+        ayat: index.ayat,
+        keterangan : index.keterangan,
+        nama: index.nama,
+        name: index.name,
+        nomor: index.nomor,
+        rukuk: index.rukuk,
+        showKet : !index.showKet,
+        start: index.start,
+        type: index.type,
+        urut: index.urut
+      })
     }
   },
   actions: {
@@ -32,6 +50,9 @@ export default new Vuex.Store({
     },
     addSurat: ({ commit }, value) => {
       commit('addSurat', value)
+    },
+    setKet: ({ commit }, value) => {
+      commit('setKet', value)
     }
   },
   getters: {

@@ -7,9 +7,11 @@
       <v-card-title>
         {{ detailAyat.nama }} ({{ detailAyat.asma }})
       </v-card-title>
-      <v-card-subtitle
-        v-text="artiSurah(detailAyat.arti)"
-      ></v-card-subtitle>
+      <v-card-subtitle>
+        <v-chip>
+          {{ artiSurah(detailAyat.arti) }}
+        </v-chip>
+      </v-card-subtitle>
       <v-card-text
         v-html="detailAyat.keterangan"
         class="text-justify"
@@ -73,67 +75,46 @@
           ></p>
         </div>
       </v-card-text>
-      <v-card-text>
-        <v-btn
-          absolute
-          dark
-          fab
-          top
-          right
-          color="indigo"
-          @click="timerMode = !timerMode"
-        >
-          <v-icon>mdi-clock</v-icon>
-        </v-btn>
-      </v-card-text>
       <v-card-actions>
         <!-- <v-col>
           For button before move
         </v-col> -->
-        <v-btn
-          color="indigo"
-          dark
-          @click="prev"
-          v-show="disablePrev"
-          :loading="loadingNextPrevBtn"
-          fab
-          bottom
-          left
-        >
-        <v-icon>
-          mdi-arrow-left
-        </v-icon>
-        </v-btn>
-        <!-- <v-spacer></v-spacer> -->
-        <v-col class="text-center">
-          <v-progress-circular
-            :rotate="360"
-            :size="65"
-            :width="5"
-            :indeterminate="timerMode"
+        <v-col class="text-left">
+          <v-btn
             color="indigo"
-            v-if="timerMode"
+            dark
+            @click="prev"
+            v-show="disablePrev"
+            :loading="loadingNextPrevBtn"
+            fab
+            bottom
+            left
           >
-            {{ timer }}
-          </v-progress-circular>
+            <v-icon>
+              mdi-arrow-left
+            </v-icon>
+          </v-btn>
         </v-col>
+        <!-- <v-spacer></v-spacer> -->
         <!-- <v-spacer></v-spacer> -->
         <!-- <v-col class="text-right">
         </v-col> -->
-        <v-btn
-          color="indigo"
-          dark
-          @click="next"
-          v-show="disableNext"
-          :loading="loadingNextPrevBtn"
-          fab
-          bottom
-          right
-        >
-        <v-icon>
-          mdi-arrow-right
-        </v-icon>
-        </v-btn>
+        <v-col class="text-right">
+          <v-btn
+            color="indigo"
+            dark
+            @click="next"
+            v-show="disableNext"
+            :loading="loadingNextPrevBtn"
+            fab
+            bottom
+            right
+          >
+            <v-icon>
+              mdi-arrow-right
+            </v-icon>
+          </v-btn>
+        </v-col>
       </v-card-actions>
     </v-card>
     <!-- <v-skeleton-loader
@@ -158,9 +139,6 @@ export default {
     ayat: 0,
     disablePrev: false,
     disableNext: false,
-    timerMode: false,
-    timer: 0,
-    maxTimer: 30,
     loadingNextPrevBtn: false
   }),
   mixins:[artiFilter],
@@ -170,28 +148,6 @@ export default {
       dialogStatus : 'dialog/status',
       currentComponent : 'dialog/component'
     })
-  },
-  watch: {
-    timer: {
-      handler(value) {
-        if(this.timerMode===true && this.disableNext === false){
-          this.countTimer(value)
-        } else {
-          this.timer = this.maxTimer
-        }
-      },
-      immediate: false // This ensures the watcher is triggered upon creation
-    },
-    timerMode: {
-      handler() {
-        if(this.timerMode===true && this.disableNext === false){
-          this.countTimer(this.maxTimer)
-        } else {
-          this.timer = this.maxTimer
-        }
-      },
-      immediate: true
-    }
   },
   methods: {
     ...mapActions({
