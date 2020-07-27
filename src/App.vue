@@ -36,6 +36,7 @@
       color="indigo"
       dark
       v-if="isHome"
+      src="https://wallpaperaccess.com/full/1439408.jpg"
     >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title>{{ appName }}</v-toolbar-title>
@@ -56,7 +57,9 @@
         </div>
         
       </v-btn>
+      
       <v-text-field 
+        align-with-title
         slot="extension"
         hide-details
         append-icon="mdi-arrow-right"
@@ -74,8 +77,9 @@
       color="indigo"
       dark
       v-else
+      src="https://wallpaperaccess.com/full/1439408.jpg"
     >
-      <v-btn icon @click.stop="$router.go(-1)">
+      <v-btn icon @click.stop="$router.push({ path: '/' })">
         <v-icon>mdi-arrow-left-circle</v-icon>
       </v-btn>
       <v-toolbar-title>{{ titleSurah }}</v-toolbar-title>

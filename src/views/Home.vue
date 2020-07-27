@@ -104,7 +104,7 @@
             </template>
           </v-card>
         </v-flex>
-        <v-slide-y-transition>
+        <v-fab-transition>
           <v-btn
             v-scroll="onScroll"
             v-show="fab"
@@ -119,7 +119,7 @@
           >
             <v-icon>mdi-arrow-up</v-icon>
           </v-btn>
-        </v-slide-y-transition>
+        </v-fab-transition>
       </v-layout>
     </v-container>
     <v-container class="ma-0 pa-2" grid-list-sm v-if="surat">
@@ -158,7 +158,7 @@
               <div v-show="surah.showKet">
                 <v-divider></v-divider>
 
-                <v-card-text class="text-justify" v-html="`${surah.keterangan.substr(0, 200)}...`">
+                <v-card-text class="text-justify" v-html="`${surah.keterangan.substr(0, 300)}...`">
                 </v-card-text>
               </div>
             </v-expand-transition>
@@ -232,17 +232,19 @@ export default {
     } else {
       let addKey = { showKet: false };
       let newObj = [];
-
+      
       this.axios
         .get("/surat")
         .then((response) => {
-          let { hasil } = response.data;
+          if(response && response.status === 200){
+            let { hasil } = response.data;
 
-          hasil.forEach((data) => {
-            newObj.push({ ...data, ...addKey });
-          });
+            hasil.forEach((data) => {
+              newObj.push({ ...data, ...addKey });
+            });
 
-          this.setSurat(newObj);
+            this.setSurat(newObj);
+          }
         })
         .catch((responses) => {
           let { error } = responses;

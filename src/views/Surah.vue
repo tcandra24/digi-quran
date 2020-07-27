@@ -76,16 +76,13 @@
         </div>
       </v-card-text>
       <v-card-actions>
-        <!-- <v-col>
-          For button before move
-        </v-col> -->
         <v-col class="text-left">
           <v-btn
             color="indigo"
             dark
             @click="prev"
-            v-show="disablePrev"
             :loading="loadingNextPrevBtn"
+            v-show="parseInt(this.detailAyat.nomor) > minSurah"
             fab
             bottom
             left
@@ -95,17 +92,13 @@
             </v-icon>
           </v-btn>
         </v-col>
-        <!-- <v-spacer></v-spacer> -->
-        <!-- <v-spacer></v-spacer> -->
-        <!-- <v-col class="text-right">
-        </v-col> -->
         <v-col class="text-right">
           <v-btn
             color="indigo"
             dark
             @click="next"
-            v-show="disableNext"
             :loading="loadingNextPrevBtn"
+            v-show="parseInt(this.detailAyat.nomor) < maxSurah"
             fab
             bottom
             right
@@ -117,12 +110,6 @@
         </v-col>
       </v-card-actions>
     </v-card>
-    <!-- <v-skeleton-loader
-      class="mx-auto"
-      max-width="500"
-      type="card"
-      v-else
-    ></v-skeleton-loader> -->
   </div>
 </template>
 <script>
@@ -139,7 +126,10 @@ export default {
     ayat: 0,
     disablePrev: false,
     disableNext: false,
-    loadingNextPrevBtn: false
+    loadingNextPrevBtn: false,
+    minSurah: 1,
+    maxSurah: 114,
+    dialogConfirm: false
   }),
   mixins:[artiFilter],
   computed: {
@@ -171,26 +161,27 @@ export default {
       url = encodeURI(url)
       this.axios.get(url)
       .then((response) => {
-        if(response){
+        if(response && response.status === 200){
           this.loadingNextPrevBtn = false
+
           let data = response.data
           this.detailAyat = data.surat
           this.isiAyatAr = data.ayat.data.ar[0]
           this.isiAyatId = data.ayat.data.idt[0]
           this.isiAyatArti = data.ayat.data.id[0]
-          if(!checkItem){
-            let value = {
+
+          if(this.ayat === 1) this.add({
               nomor: this.detailAyat.nomor,
               nama: this.detailAyat.nama,
               ayat: this.ayat,
               jmlAyat: this.detailAyat.ayat
-            }
-            this.add(value)
-          }
+            })
+          
 
           this.setTitle({
             text: this.detailAyat.nama
           })
+
           let alertMessage = ``
           if(this.ayat < this.detailAyat.ayat) {
             alertMessage = `Anda masih menyelesaikan ${this.ayat} dari ${this.detailAyat.ayat} ayat surat ${this.detailAyat.nama}`
@@ -209,50 +200,54 @@ export default {
         let { error } = responses
         console.log(error)
       })
-
-      if(this.ayat === 1){
-        this.disablePrev = false
-        this.disableNext = true
-      }else if (this.ayat === parseInt(checkItem.jmlAyat)){
-        this.disablePrev = true
-        this.disableNext = false
-      } else {
-        this.disablePrev = true
-        this.disableNext = true
-      }
-
     },
     next() {
-      this.loadingNextPrevBtn = true
-      this.change({
-        nomor: this.detailAyat.nomor,
-        nama: this.detailAyat.nama,
-        ayat: this.ayat + 1,
-        jmlAyat: this.detailAyat.ayat
-      })
-      this.go()
+      if (this.ayat === parseInt(this.detailAyat.ayat) ){
+        this.$confirm('Ke Surat Selanjutnya ?').then(res => {
+          if(res) {
+            this.loadingNextPrevBtn = true
+            this.$router.push({path: `/surah/${parseInt(this.detailAyat.nomor) + 1}`})
+            this.go()
+          }
+        })
+      } else {
+        this.loadingNextPrevBtn = true
+        this.change({
+          nomor: this.detailAyat.nomor,
+          nama: this.detailAyat.nama,
+          ayat: this.ayat + 1,
+          jmlAyat: this.detailAyat.ayat
+        })
+        this.go()
+      }
     },
     prev() {
-      this.loadingNextPrevBtn = true
-      this.change({
-        nomor: this.detailAyat.nomor,
-        nama: this.detailAyat.nama,
-        ayat: this.ayat - 1,
-        jmlAyat: this.detailAyat.ayat
-      })
-      this.go()
-    },
-    countTimer(value) {
-      if (value > 0) {
-        setTimeout(() => {
-          this.timer--;
-        }, 1000);
+      if (this.ayat == 1 ){
+        this.$confirm('Ke Surat Sebelumnya ?').then(res => {
+          if(res) {
+            this.loadingNextPrevBtn = true
+            this.$router.push({path: `/surah/${parseInt(this.detailAyat.nomor) - 1}`})
+            this.go()
+          }
+        })
       } else {
-        this.next()
-        this.timer = this.maxTimer
+        this.loadingNextPrevBtn = true
+        this.change({
+          nomor: this.detailAyat.nomor,
+          nama: this.detailAyat.nama,
+          ayat: this.ayat - 1,
+          jmlAyat: this.detailAyat.ayat
+        })
+        this.go()
       }
+      
     }
   },
+  // watch: {
+  //   '$route.params.id' : function(id) {
+  //     alert(id)
+  //   }
+  // },
   created() {
     if (this.dialogStatus === true && this.currentComponent === 'search'){
       this.setDialogStatus(false)

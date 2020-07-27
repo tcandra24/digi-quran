@@ -52,31 +52,28 @@
             </template>  
           </v-list>
         </v-container>
-        <template>
+        <!-- <template>
           <v-layout row justify-center>
             <v-dialog v-model="dialogConfirm" persistent max-width="350">
               <v-card>
                 <v-card-title>Surat {{taskDeleteConfirm.nama}} </v-card-title>
                 <v-card-text> Yakin Menghapus Task ? </v-card-text>
                 <v-card-actions>
-                  <v-btn color="warning" @click="yes">Yes</v-btn>
+                  <v-btn color="error" @click="yes">Yes</v-btn>
                   <v-spacer></v-spacer>
-                  <v-btn color="success" @click="no">No</v-btn>
+                  <v-btn color="primary" @click="no">No</v-btn>
                 </v-card-actions>
               </v-card>
             </v-dialog>
           </v-layout>
-        </template>
+        </template> -->
     </v-card>
 </template>
 <script>
 import { mapGetters, mapActions } from 'vuex'
 export default {
   name: 'tasks',
-  data: () => ({
-    dialogConfirm: false,
-    taskDeleteConfirm: [] 
-  }),
+  data: () => ({}),
   computed: {
     ...mapGetters({
       allTask: 'reading/readSurah',
@@ -94,16 +91,12 @@ export default {
     ...mapActions({
       removeTask: 'reading/removing',
     }),
-    yes(){
-      this.removeTask(this.taskDeleteConfirm)
-      this.dialogConfirm = false
-    },
-    no(){
-      this.dialogConfirm = false
-    },
     showConfirm(task) {
-      this.dialogConfirm = true
-      this.taskDeleteConfirm = task
+      this.$confirm(`Hapus Task Surah ${task.nama} ?`).then(res => {
+        if(res) {
+          this.removeTask(task)
+        }
+      })
     }
   }
 }

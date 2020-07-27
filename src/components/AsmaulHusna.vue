@@ -19,7 +19,7 @@
                 {{ a.latin }} ({{ a.arab }})
               </v-list-item-title>
               <v-list-item-subtitle>
-                {{ a.arti }}
+                <p>{{ a.arti }}</p>
               </v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
