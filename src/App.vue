@@ -36,7 +36,6 @@
       color="indigo"
       dark
       v-if="isHome"
-      src="https://wallpaperaccess.com/full/1439408.jpg"
     >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title>{{ appName }}</v-toolbar-title>
@@ -77,7 +76,6 @@
       color="indigo"
       dark
       v-else
-      src="https://wallpaperaccess.com/full/1439408.jpg"
     >
       <v-btn icon @click.stop="$router.push({ path: '/' })">
         <v-icon>mdi-arrow-left-circle</v-icon>
@@ -87,7 +85,7 @@
 
     <alert />
 
-    <v-content>
+    <v-main>
       <v-container
         class="fill-height"
         fluid
@@ -102,12 +100,12 @@
           <component :is="currentComponent" @closed="setDialogStatus"></component>
         </v-dialog>
       </keep-alive>
-    </v-content>
+    </v-main>
     <v-footer
-      color="indigo"
-      app
+      color="grey lighten-2"
+      
     >
-      <span class="white--text">&copy; {{ new Date().getFullYear() }} - Digital Quran </span>
+      <span class="grey--text">&copy; {{ new Date().getFullYear() }} - Digital Quran {{ versionApp }} </span>
     </v-footer>
   </v-app>
 </template>

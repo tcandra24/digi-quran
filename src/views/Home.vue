@@ -123,6 +123,12 @@
       </v-layout>
     </v-container>
     <v-container class="ma-0 pa-2" grid-list-sm v-if="surat">
+      <!-- Tes Scroll -->
+      <!-- <button @click="scrollTes">Tes</button>
+      <div class="tes-scroll">
+        Tess2
+      </div> -->
+      <!-- Tes Scroll -->
       <div class="text-left indigo--text">
         Semua Surat ({{ totalSurah }})
         <v-icon color="indigo">mdi-chevron-right</v-icon>
@@ -139,7 +145,9 @@
             <v-card-title class="fill-height align-end">
               {{ surah.nomor }} . {{ surah.nama }} ( {{ surah.asma }} )
             </v-card-title>
-            <v-card-subtitle v-text="artiSurah(surah.arti)"></v-card-subtitle>
+            <v-card-subtitle>
+              {{ artiSurah(surah.arti) }} - {{ surah.ayat }} Ayat
+            </v-card-subtitle>
             <v-card-actions>
               <v-chip>
                 <v-icon>mdi-book</v-icon>
@@ -226,7 +234,8 @@ export default {
     isActive: false,
     fab: false,
   }),
-  created() {
+  mounted() {
+    this.$vuetify.goTo(0);
     if (this.surat.length > 0) {
       this.AllSurah = this.surat;
     } else {
@@ -281,6 +290,15 @@ export default {
     toTop() {
       this.$vuetify.goTo(0);
     },
+    // scrollTes() {
+    //   const tes = document.querySelector('.tes-scroll');
+    //   const position = tes.offsetTop;
+    //   const position2 = tes.offsetHeight;
+    //   console.log(`offset Top ${position}`)
+    //   console.log(`offset Height ${position2}`)
+    //   console.log(`innerheight ${window.innerHeight}`)
+    //   console.log(`pageYoffset ${window.pageYOffset}`)
+    // }
   },
   computed: {
     ...mapGetters({

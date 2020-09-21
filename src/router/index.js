@@ -28,7 +28,17 @@ Vue.use(VueRouter)
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
+  routes,
+  // scrollBehavior(to, from) {
+  //   if(to.fullPath === '/' && from.fullPath.includes('surah')){
+  //     console.log(to)
+  //     // console.log(from)
+  //     // console.log('hello')
+  //     // let scrollPosition = document.documentElement.scrollTop + window.innerHeight
+  //     // console.log(scrollPosition)
+  //     // return { x: 0, y: 0 }
+  //   }
+  // }
 })
 
 export default router

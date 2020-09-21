@@ -1,258 +1,117 @@
 <template>
   <div>
     <v-card 
-      v-if="detailAyat.nama"
+      v-if="detailSurah.nama"
       outlined
     >
       <v-card-title>
-        {{ detailAyat.nama }} ({{ detailAyat.asma }})
+        {{ detailSurah.nama }} ({{ detailSurah.asma }})
       </v-card-title>
       <v-card-subtitle>
         <v-chip>
-          {{ artiSurah(detailAyat.arti) }}
+          {{ artiSurah(detailSurah.arti) }}
         </v-chip>
       </v-card-subtitle>
       <v-card-text
-        v-html="detailAyat.keterangan"
         class="text-justify"
+        v-html="detailSurah.keterangan"
       >
       </v-card-text>
-      <v-divider></v-divider>
-      <v-card-text>
-        <p class="mb-5">
-          Ayat ke - {{ ayat }} / {{ detailAyat.ayat }}
-        </p>
-        <br>
-        <v-sheet
-          class="px-3 pt-3 pb-3"
-          v-if="loadingNextPrevBtn"
-        >
-          <v-skeleton-loader
-            ref="skeleton"
-            type="text"
-            class="mx-auto"
-          ></v-skeleton-loader>
-          <v-skeleton-loader
-            ref="skeleton"
-            type="text"
-            class="mx-auto"
-          ></v-skeleton-loader>
-          <v-skeleton-loader
-            ref="skeleton"
-            type="text"
-            class="mx-auto"
-          ></v-skeleton-loader>
-          <br>
-          <v-skeleton-loader
-            ref="skeleton"
-            type="text"
-            class="mx-auto"
-          ></v-skeleton-loader>
-          <br>
-          <v-skeleton-loader
-            ref="skeleton"
-            type="text"
-            class="mx-auto"
-          ></v-skeleton-loader>
-        </v-sheet>
-        <div
-          v-else
-        >
-          <p
-            v-html="isiAyatAr.teks"
-            class="text-center headline"
-          >  
-          </p>
-          <p
-            v-html="isiAyatId.teks"
-            class="text-center"
-          >  
-          </p>
-          <br>
-          <p
-            v-text="isiAyatArti.teks"
-            class="text-center"
-          ></p>
-        </div>
-      </v-card-text>
-      <v-card-actions>
-        <v-col class="text-left">
-          <v-btn
-            color="indigo"
-            dark
-            @click="prev"
-            :loading="loadingNextPrevBtn"
-            v-show="parseInt(this.detailAyat.nomor) > minSurah"
-            fab
-            bottom
-            left
-          >
-            <v-icon>
-              mdi-arrow-left
-            </v-icon>
-          </v-btn>
-        </v-col>
-        <v-col class="text-right">
-          <v-btn
-            color="indigo"
-            dark
-            @click="next"
-            :loading="loadingNextPrevBtn"
-            v-show="parseInt(this.detailAyat.nomor) < maxSurah"
-            fab
-            bottom
-            right
-          >
-            <v-icon>
-              mdi-arrow-right
-            </v-icon>
-          </v-btn>
-        </v-col>
-      </v-card-actions>
     </v-card>
+
+    <div>
+      <v-col class="text-right">
+        <v-btn-toggle
+          rounded
+          dense
+          v-model="mode.index"
+          v-if="detailSurah.nama"
+        >
+          <v-btn 
+            @click="toogleSingleView"
+          >
+            <v-icon>mdi-application</v-icon>
+          </v-btn>
+          <v-btn 
+            @click="toogleListView"
+          >
+            <v-icon>mdi-format-list-bulleted-square</v-icon>
+          </v-btn>
+        </v-btn-toggle>
+      </v-col>
+    </div>
+    <component :is="mode.component" @detail="GetDetailSurah" ></component>
   </div>
 </template>
 <script>
-import { mapActions, mapGetters } from 'vuex'
+
 import { artiFilter } from '@/mixins/artiFilter'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   data: () => ({
-    surah: {},
-    detailAyat: {},
-    isiAyatAr: {},
-    isiAyatId: {},
-    isiAyatArti: {},
-    ayat: 0,
-    disablePrev: false,
-    disableNext: false,
-    loadingNextPrevBtn: false,
-    minSurah: 1,
-    maxSurah: 114,
-    dialogConfirm: false
+    btnToogle: 0,
+    detailSurah: {},
   }),
+  components:{
+    SingleView: () => import('@/components/SinglePageView.vue'),
+    ListView: () => import('@/components/ListPageView.vue'),
+  },
   mixins:[artiFilter],
+  methods: {
+    ...mapActions({
+      setMode: 'setMode'
+    })
+    ,
+    toogleListView() {
+      if (this.mode.name !== 'list') {
+        this.setMode({
+          name: 'list',
+          component: 'list-view',
+          index: 1
+        })
+      }
+    },
+    toogleSingleView() {
+      if (this.mode.name !== 'single') {
+        this.setMode({
+          name: 'single',
+          component: 'single-view',
+          index: 0
+        })
+      }
+    },
+    GetDetailSurah(value) {
+      this.detailSurah = value
+    }
+  },
   computed: {
     ...mapGetters({
       readSurah: 'reading/readSurah',
-      dialogStatus : 'dialog/status',
-      currentComponent : 'dialog/component'
+      mode: 'mode'
     })
-  },
-  methods: {
-    ...mapActions({
-      add: 'reading/add',
-      change: 'reading/update',
-      setAlert: 'alert/set',
-      setTitle: 'set',
-      setDialogStatus: 'dialog/setStatus',
-    }),
-    go() {
-      let { id } = this.$route.params
-      let checkItem = this.readSurah.find(item => item.nomor === id)
-      
-      if(!checkItem){
-        this.ayat = 1
-      } else {
-        this.ayat = checkItem.ayat
-      }
-
-      let url = `/surat/${id}/ayat/${this.ayat}`
-      url = encodeURI(url)
-      this.axios.get(url)
-      .then((response) => {
-        if(response && response.status === 200){
-          this.loadingNextPrevBtn = false
-
-          let data = response.data
-          this.detailAyat = data.surat
-          this.isiAyatAr = data.ayat.data.ar[0]
-          this.isiAyatId = data.ayat.data.idt[0]
-          this.isiAyatArti = data.ayat.data.id[0]
-
-          if(this.ayat === 1) this.add({
-              nomor: this.detailAyat.nomor,
-              nama: this.detailAyat.nama,
-              ayat: this.ayat,
-              jmlAyat: this.detailAyat.ayat
-            })
-          
-
-          this.setTitle({
-            text: this.detailAyat.nama
-          })
-
-          let alertMessage = ``
-          if(this.ayat < this.detailAyat.ayat) {
-            alertMessage = `Anda masih menyelesaikan ${this.ayat} dari ${this.detailAyat.ayat} ayat surat ${this.detailAyat.nama}`
-          } else {
-            alertMessage = `Selamat anda menyelesaikan surat ${this.detailAyat.nama}` 
-          }
-
-          this.setAlert({
-            color: 'success',
-            text: alertMessage
-          })
-        }
-
-      })
-      .catch((responses) => {
-        let { error } = responses
-        console.log(error)
-      })
-    },
-    next() {
-      if (this.ayat === parseInt(this.detailAyat.ayat) ){
-        this.$confirm('Ke Surat Selanjutnya ?').then(res => {
-          if(res) {
-            this.loadingNextPrevBtn = true
-            this.$router.push({path: `/surah/${parseInt(this.detailAyat.nomor) + 1}`})
-            this.go()
-          }
-        })
-      } else {
-        this.loadingNextPrevBtn = true
-        this.change({
-          nomor: this.detailAyat.nomor,
-          nama: this.detailAyat.nama,
-          ayat: this.ayat + 1,
-          jmlAyat: this.detailAyat.ayat
-        })
-        this.go()
-      }
-    },
-    prev() {
-      if (this.ayat == 1 ){
-        this.$confirm('Ke Surat Sebelumnya ?').then(res => {
-          if(res) {
-            this.loadingNextPrevBtn = true
-            this.$router.push({path: `/surah/${parseInt(this.detailAyat.nomor) - 1}`})
-            this.go()
-          }
-        })
-      } else {
-        this.loadingNextPrevBtn = true
-        this.change({
-          nomor: this.detailAyat.nomor,
-          nama: this.detailAyat.nama,
-          ayat: this.ayat - 1,
-          jmlAyat: this.detailAyat.ayat
-        })
-        this.go()
-      }
-      
-    }
   },
   // watch: {
   //   '$route.params.id' : function(id) {
   //     alert(id)
   //   }
   // },
-  created() {
-    if (this.dialogStatus === true && this.currentComponent === 'search'){
-      this.setDialogStatus(false)
-    }
-    this.go()
+  mounted() {
+    this.$vuetify.goTo(0);
+    // let min = 1
+    // let max = 10
+    // let count = 0
+    // let param = 34
+    // while (count < 30) {
+    //   if ((param - min) * (param - max) <= 0){
+    //     console.log(min)
+    //     console.log(max)
+    //     break
+    //   }
+    //   min += 10
+    //   max += 10
+    //   count ++
+    // }
   }
 }
 </script>

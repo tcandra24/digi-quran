@@ -10,23 +10,46 @@
       <v-card-subtitle>
         Tito Candra
       </v-card-subtitle>
-      <v-card-text class="text-justify">
-        Saya membuat aplikasi ini bertujuan untuk
-        sarana bagi umat muslim dalam membaca kitab suci Al-Quran di manapun berada jika tidak membawa
-        Al-Quran, aplikasi ini menggunakan Teknologi Vue JS, Vuex, Vue Router, Vuetify Dan Aplikasi ini didukung oleh API https://api.banghasan.com/. 
-        Harapan saya kedepan aplikasi ini dapat menjadi aplikasi yang dapat membantu kita dalam membaca/menghafal Al-Quran. 
+      <v-divider></v-divider>
+      <v-card-text>
+        <v-row no-gutters>
+          <v-col align="right">
+            <v-img
+              src="../assets/logo.png"
+              max-height="140"
+              max-width="140"
+              contain
+            >
+            </v-img>
+          </v-col>
+          <v-col md="auto" class="text-center">
+            <v-icon class="mt-10 mr-0">
+              mdi-plus-thick
+            </v-icon>
+          </v-col>
+          <v-col align="left">
+            <v-img
+              src="../assets/vuetify.png"
+              max-height="140"
+              max-width="140"
+              contain
+            >
+            </v-img>
+          </v-col>
+        </v-row>
       </v-card-text>
       <v-divider></v-divider>
       <v-card-text class="text-justify">
-        Pada versi 1.1.0 ini aplikasi ini belum mempunyai fitur login atau pun penjadwalan membaca Al-Quran hanya menampilkan surat
-        dan jika memang surat belum di selesaikan maka akan muncul pada halaman All Tasks, namun seiring berjalan waktu
-        saya akan sedikit demi sedikit menambah fitur yang membuat aplikasi ini berjalan sesuai dengan kebutuhan
+        Saya membuat aplikasi ini bertujuan untuk
+        menjadi sarana bagi teman-teman dalam membaca kitab suci Al-Quran di manapun berada, 
+        aplikasi ini menggunakan Teknologi Vue JS, Vuex, Vue Router, Vuetify Dan Aplikasi ini didukung oleh API https://api.banghasan.com/. 
+        Harapan saya kedepan aplikasi ini dapat menjadi aplikasi yang dapat membantu kita dalam membaca/menghafal Al-Quran. 
       </v-card-text>
     </v-card>
   </v-layout>
 </template>
 <script>
 export default {
-  
+
 }
 </script>

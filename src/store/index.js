@@ -16,7 +16,12 @@ export default new Vuex.Store({
   plugins:[persistVuex.plugin],
   state: {
     title: '',
-    surat: []
+    surat: [],
+    mode: {
+      name: 'single',
+      component: 'single-view',
+      index: 0
+    }
   },
   mutations: {
     set: (state, value) => {
@@ -42,6 +47,11 @@ export default new Vuex.Store({
         type: index.type,
         urut: index.urut
       })
+    },
+    setMode: (state, value) => {
+      state.mode.name = value.name
+      state.mode.component = value.component
+      state.mode.index = value.index
     }
   },
   actions: {
@@ -53,11 +63,15 @@ export default new Vuex.Store({
     },
     setKet: ({ commit }, value) => {
       commit('setKet', value)
+    },
+    setMode: ({ commit }, value) => {
+      commit('setMode', value)
     }
   },
   getters: {
     title: state => state.title,
     surat: state => state.surat,
+    mode: state => state.mode
   },
   modules: {
     reading,
