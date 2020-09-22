@@ -14,12 +14,12 @@
             <v-list-item-avatar color="#f4f4f4">
               {{ a.urutan }}
             </v-list-item-avatar>
-            <v-list-item-content>
+            <v-list-item-content class="mx-auto">
               <v-list-item-title class="headline">
                 {{ a.latin }} ({{ a.arab }})
               </v-list-item-title>
-              <v-list-item-subtitle>
-                <p>{{ a.arti }}</p>
+              <v-list-item-subtitle width="100">
+                {{ a.arti }}
               </v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
@@ -57,3 +57,9 @@ export default {
   // }
 }
 </script>
+
+<style scoped>
+.v-list-item__subtitle {
+  white-space: normal !important; 
+}
+</style>

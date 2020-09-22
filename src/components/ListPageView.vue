@@ -38,7 +38,7 @@
               >
                 <v-list-item-content>
                   <v-list-item-title 
-                    class="title__text headline grey--text text--darken-2"
+                    class="title__text headline grey--text text--darken-2 height-line"
                   >
                     {{ list.arab }} ({{ list.ayat }})
                   </v-list-item-title>
@@ -77,7 +77,7 @@
               >
                 <v-list-item-content>
                   <v-list-item-title 
-                    class="title__text headline grey--text text--darken-2"
+                    class="title__text headline grey--text text--darken-2 height-line"
                     :id="list.ayat"
                   >
                     {{ list.arab }} ({{ list.ayat }})
@@ -262,7 +262,7 @@ export default {
     },
     previous() {
       this.loadingListAyat = true
-      fetch('https://api.npoint.io/99c279bb173a6e28359c/surat/2')
+      fetch(`https://api.npoint.io/99c279bb173a6e28359c/surat/${this.id}`)
       .then((response) => {
         return response.json()
       }).then((json) => {
@@ -320,5 +320,8 @@ export default {
   }
   .title__text {
     white-space: normal
+  }
+  .height-line {
+    line-height: 1.5;
   }
 </style>

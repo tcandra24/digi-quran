@@ -49,7 +49,7 @@
         >
           <p
             v-html="isiAyatAr.teks"
-            class="text-center headline"
+            class="text-center headline height-line"
           >  
           </p>
           <p
@@ -251,3 +251,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  .height-line {
+    line-height: 1.5;
+  }
+</style>
