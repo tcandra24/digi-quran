@@ -136,7 +136,7 @@
       <v-divider></v-divider>
       <v-layout wrap>
         <v-flex
-          v-for="(surah, index) in surat.slice(0, items)"
+          v-for="(surah, index) in surat.slice(0, surat.length - 1)"
           :key="`surah-` + index"
           md
           class="pt-5"
@@ -174,13 +174,6 @@
         </v-flex>
       </v-layout>
     </v-container>
-    <v-container>
-      <v-col class="text-center">
-        <v-btn text color="indigo" @click="more()" v-if="surat.length - 1 > items">
-          More..
-        </v-btn>
-      </v-col>
-    </v-container>
   </div>
 </template>
 
@@ -194,7 +187,6 @@ export default {
   name: "Home",
   mixins: [artiFilter],
   data: () => ({
-    items: 20,
     asmaul_husna: asmaulHusna,
     itemImages: [
       {
@@ -272,10 +264,6 @@ export default {
     this.setTitle({});
   },
   methods: {
-    more() {
-      this.items = (this.items + 20) > parseInt(this.surat.length) ? this.items = this.surat.length - 1 : this.items + 20
-      console.log(this.items)
-    },
     ...mapActions({
       setTitle: "set",
       setAlert: "alert/set",
