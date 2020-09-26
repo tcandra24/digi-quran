@@ -18,6 +18,15 @@
             </v-alert>
           </div>
           <v-list three-line v-if="count > 0">
+            <v-col class="text-right">
+              <v-btn 
+                rounded
+                color="error"
+                @click="showConfirm(null)"
+              >
+                Hapus Semua
+              </v-btn>
+            </v-col>
             <template v-for="(task, index) in allTask">
               <v-list-item :key="'task'+index">
                 <v-list-item-content>
@@ -26,7 +35,17 @@
                     <v-icon v-if="parseInt(task.ayat) === parseInt(task.jmlAyat)" dark color="success">mdi-check-outline</v-icon>
                   </v-list-item-title>
                   <v-list-item-subtitle>
-                    Ayat Ke {{ task.ayat }} / {{ task.jmlAyat }}
+                    <div>
+                      Ayat Ke {{ task.ayat }} / {{ task.jmlAyat }}
+                    </div>
+                    <br>
+                    <div>
+                      <v-progress-linear 
+                        striped 
+                        rounded 
+                        :value="(parseInt(task.ayat) / parseInt(task.jmlAyat)) * 100"
+                      ></v-progress-linear>
+                    </div>
                   </v-list-item-subtitle>
                 </v-list-item-content>
                 <div v-if="task.ayat < task.jmlAyat">
@@ -90,13 +109,23 @@ export default {
     },
     ...mapActions({
       removeTask: 'reading/removing',
+      removeAllTask: 'reading/removingAll',
     }),
     showConfirm(task) {
-      this.$confirm(`Hapus Task Surah ${task.nama} ?`).then(res => {
-        if(res) {
-          this.removeTask(task)
-        }
-      })
+      if (task){
+        this.$confirm(`Hapus Task Surah ${task.nama} ?`).then(res => {
+          if(res) {
+            this.removeTask(task)
+          }
+        })
+      } else {
+        this.$confirm(`Hapus Semua Task Surah?`).then(res => {
+          if(res) {
+            this.removeAllTask()
+          }
+        })
+      }
+      
     }
   }
 }

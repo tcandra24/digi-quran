@@ -176,7 +176,7 @@
     </v-container>
     <v-container>
       <v-col class="text-center">
-        <v-btn text color="indigo" @click="more()" v-if="surat.length > items">
+        <v-btn text color="indigo" @click="more()" v-if="surat.length - 1 > items">
           More..
         </v-btn>
       </v-col>
@@ -273,7 +273,7 @@ export default {
   },
   methods: {
     more() {
-      this.items += 10;
+      this.items = (this.items + 10) > this.surat.length ? this.items = this.surat.length - 1 : this.items + 10
     },
     ...mapActions({
       setTitle: "set",

@@ -144,6 +144,21 @@ export default {
     }),
     go () {
       this.numberIdSurah = []
+      let { id } = this.$route.params
+      this.id = id
+      this.checkItem = this.readSurah.find(item => item.nomor === this.id)
+
+      const last = this.surah.find(surah => {
+        return surah.nomor == id
+      })
+
+      if(!this.checkItem){
+        this.firstAyat = 1
+        this.lastAyat = last.ayat >=10 ? 10 : last.ayat
+      } else {
+        this.firstAyat = this.checkItem.ayat
+        this.lastAyat = (this.firstAyat + 10) >= last.ayat ? last.ayat : this.firstAyat + 10
+      }
       // this.lastAyat = this.lastAyat > parseInt(this.detailAyat.ayat) ? parseInt(this.detailAyat.ayat) : this.lastAyat
       let url = `/surat/${this.id}/ayat/${this.firstAyat}-${this.lastAyat}`
       this.axios.get(url)
@@ -236,7 +251,8 @@ export default {
         nomor: this.detailAyat.nomor,
         nama: this.detailAyat.nama,
         ayat: this.scrollPosition,
-        jmlAyat: this.detailAyat.ayat
+        jmlAyat: this.detailAyat.ayat,
+        updateMode: null
       })
 
       let alertMessage;
@@ -290,24 +306,9 @@ export default {
     }
   },
   mounted () {
-    this.loading = true
+    // this.loading = true
     if (this.dialogStatus === true && this.currentComponent === 'search'){
       this.setDialogStatus(false)
-    }
-    let { id } = this.$route.params
-    this.id = id
-    this.checkItem = this.readSurah.find(item => item.nomor === this.id)
-
-    const last = this.surah.find(surah => {
-      return surah.nomor == id
-    })
-
-    if(!this.checkItem){
-      this.firstAyat = 1
-      this.lastAyat = last.ayat >=10 ? 10 : last.ayat
-    } else {
-      this.firstAyat = this.checkItem.ayat
-      this.lastAyat = (this.firstAyat + 10) >= last.ayat ? last.ayat : this.firstAyat + 10
     }
 
     this.go()

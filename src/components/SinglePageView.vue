@@ -205,11 +205,13 @@ export default {
         })
       } else {
         this.loadingNextPrevBtn = true
+
         this.change({
           nomor: this.detailAyat.nomor,
           nama: this.detailAyat.nama,
-          ayat: this.ayat + 1,
-          jmlAyat: this.detailAyat.ayat
+          ayat: this.ayat,
+          jmlAyat: this.detailAyat.ayat,
+          updateMode: 'next'
         })
         this.go()
       }
@@ -230,14 +232,12 @@ export default {
         this.change({
           nomor: this.detailAyat.nomor,
           nama: this.detailAyat.nama,
-          ayat: this.ayat - 1,
-          jmlAyat: this.detailAyat.ayat
+          ayat: this.ayat,
+          jmlAyat: this.detailAyat.ayat,
+          updateMode: 'prev'
         })
         this.go()
       }
-    },
-    alertCoba(value) {
-      alert(value)
     },
     sendDetailSurah(detailAyat) {
       this.$emit('detail', detailAyat);

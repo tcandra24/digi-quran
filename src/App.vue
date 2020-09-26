@@ -56,7 +56,7 @@
         </div>
         
       </v-btn>
-      
+
       <v-text-field 
         align-with-title
         slot="extension"
@@ -102,10 +102,29 @@
       </keep-alive>
     </v-main>
     <v-footer
-      color="grey lighten-2"
-      
+      padless
     >
-      <span class="grey--text">&copy; {{ new Date().getFullYear() }} - Digital Quran {{ versionApp }} </span>
+      <v-card
+        class="flex grey lighten-2"
+        flat
+        tile
+      >
+        <v-card-title>
+          <h4 class="subheading grey--text">{{appName}}</h4>
+          <v-btn 
+            class="mx-1 grey--text" text
+            v-for="(social, index) in socialMedia"
+            :key="index" 
+          >
+            <v-icon size="24px">{{social.icon}}</v-icon>
+          </v-btn>
+        </v-card-title>
+        <v-card-text class="text-center">
+          <span class="grey--text">&copy; {{ new Date().getFullYear() }} - Digital Quran {{ versionApp }} </span>
+        </v-card-text>
+
+      </v-card>
+      
     </v-footer>
   </v-app>
 </template>
@@ -127,6 +146,10 @@
       menus: [
         { title: 'Home', icon: 'mdi-home-outline', route: '/' },
         { title: 'About', icon: 'mdi-information-outline', route: '/about' }
+      ],
+      socialMedia: [
+        { icon: 'mdi-facebook' },
+        { icon: 'mdi-instagram' }
       ]
     }),
     computed: {

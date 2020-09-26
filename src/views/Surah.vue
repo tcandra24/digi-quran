@@ -1,5 +1,24 @@
 <template>
   <div>
+    <v-row
+      align="center"
+      justify="center"
+      class="my-5 pa-2"
+    >
+      <v-btn-toggle
+        shaped
+        v-if="detailSurah.nama"
+      >
+        <v-btn v-if="!(choiceSurah.objectPrev === undefined)" @click="goToLink(choiceSurah.objectPrev.nomor)">
+          <v-icon>mdi-arrow-left</v-icon>
+          {{choiceSurah.objectPrev.nama}}
+        </v-btn>
+        <v-btn v-if="!(choiceSurah.objectNext === undefined)" @click="goToLink(choiceSurah.objectNext.nomor)">
+          {{choiceSurah.objectNext.nama}}
+          <v-icon>mdi-arrow-right</v-icon>
+        </v-btn>
+      </v-btn-toggle>
+    </v-row>
     <v-card 
       v-if="detailSurah.nama"
       outlined
@@ -7,7 +26,7 @@
       <v-card-title>
         {{ detailSurah.nama }} ({{ detailSurah.asma }})
       </v-card-title>
-      <v-card-subtitle>
+      <v-card-subtitle class="mt-1">
         <v-chip>
           {{ artiSurah(detailSurah.arti) }}
         </v-chip>
@@ -40,7 +59,7 @@
         </v-btn-toggle>
       </v-col>
     </div>
-    <component :is="mode.component" @detail="GetDetailSurah" ></component>
+    <component :is="mode.component" @detail="GetDetailSurah" ref="childComponent"></component>
   </div>
 </template>
 <script>
@@ -51,7 +70,7 @@ import { mapGetters, mapActions } from 'vuex'
 export default {
   data: () => ({
     btnToogle: 0,
-    detailSurah: {},
+    detailSurah: {}
   }),
   components:{
     SingleView: () => import('@/components/SinglePageView.vue'),
@@ -83,13 +102,41 @@ export default {
     },
     GetDetailSurah(value) {
       this.detailSurah = value
+    },
+    goToLink(value){
+      this.$router.push({path: "/surah/" + value})
+      if (this.mode.component === 'list-view'){
+        this.$refs.childComponent.listSurah = []
+      }
+      this.$refs.childComponent.go()
     }
   },
   computed: {
     ...mapGetters({
       readSurah: 'reading/readSurah',
-      mode: 'mode'
-    })
+      mode: 'mode',
+      surah: 'surat'
+    }),
+    choiceSurah(){
+      let { id } = this.$route.params
+      let prev = parseInt(id) - 1
+      let next = parseInt(id) + 1
+      let objectPrev = {}
+      let objectNext = {}
+      
+      objectPrev = this.surah.find((data) => {
+        return parseInt(data.nomor) === prev && prev > 0
+      })
+
+      objectNext = this.surah.find((data) => {
+        return parseInt(data.nomor) === next && next < this.surah.length
+      })
+
+      return {
+        objectPrev,
+        objectNext
+      }
+    }
   },
   // watch: {
   //   '$route.params.id' : function(id) {
