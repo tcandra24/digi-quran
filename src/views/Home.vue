@@ -273,7 +273,8 @@ export default {
   },
   methods: {
     more() {
-      this.items = (this.items + 10) > this.surat.length ? this.items = this.surat.length - 1 : this.items + 10
+      this.items = (this.items + 20) > parseInt(this.surat.length) ? this.items = this.surat.length - 1 : this.items + 20
+      console.log(this.items)
     },
     ...mapActions({
       setTitle: "set",

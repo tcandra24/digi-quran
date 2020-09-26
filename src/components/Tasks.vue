@@ -119,7 +119,7 @@ export default {
           }
         })
       } else {
-        this.$confirm(`Hapus Semua Task Surah?`).then(res => {
+        this.$confirm(`Hapus Semua Task ?`).then(res => {
           if(res) {
             this.removeAllTask()
           }
