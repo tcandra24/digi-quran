@@ -136,7 +136,7 @@
       <v-divider></v-divider>
       <v-layout wrap>
         <v-flex
-          v-for="(surah, index) in surat.slice(0, surat.length - 1)"
+          v-for="(surah, index) in surat.slice(0, 114)"
           :key="`surah-` + index"
           md
           class="pt-5"
@@ -252,7 +252,7 @@ export default {
           console.log = error;
         });
     }
-
+    
     if (this.$route.path === "/" && this.text !== "") {
       this.setAlert({
         status: true,
