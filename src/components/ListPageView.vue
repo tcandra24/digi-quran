@@ -138,7 +138,6 @@ export default {
     ...mapActions({
       add: 'reading/add',
       change: 'reading/update',
-      setAlert: 'alert/set',
       setTitle: 'set',
       setDialogStatus: 'dialog/setStatus',
     }),
@@ -253,18 +252,6 @@ export default {
         ayat: this.scrollPosition,
         jmlAyat: this.detailAyat.ayat,
         updateMode: null
-      })
-
-      let alertMessage;
-      if(this.scrollPosition < this.detailAyat.ayat) {
-        alertMessage = `Anda masih menyelesaikan ${this.scrollPosition} dari ${this.detailAyat.ayat} ayat surat ${this.detailAyat.nama}`
-      } else {
-        alertMessage = `Selamat anda menyelesaikan surat ${this.detailAyat.nama}` 
-      }
-      
-      this.setAlert({
-        color: 'success',
-        text: alertMessage
       })
     },
     more() {

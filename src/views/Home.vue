@@ -136,7 +136,7 @@
       <v-divider></v-divider>
       <v-layout wrap>
         <v-flex
-          v-for="(surah, index) in surat.slice(0, 114)"
+          v-for="(surah, index) in surat.slice(0, countSurah)"
           :key="`surah-` + index"
           md
           class="pt-5"
@@ -173,6 +173,11 @@
           </v-card>
         </v-flex>
       </v-layout>
+      <v-col class="text-center">
+        <v-btn text color="indigo" @click="more" v-if="countSurah < this.maxSurah">
+          More..
+        </v-btn>
+      </v-col>
     </v-container>
   </div>
 </template>
@@ -188,6 +193,8 @@ export default {
   mixins: [artiFilter],
   data: () => ({
     asmaul_husna: asmaulHusna,
+    countSurah: 20,
+    maxSurah: 114,
     itemImages: [
       {
         src: "view-1.jpg",
@@ -253,14 +260,16 @@ export default {
         });
     }
     
-    if (this.$route.path === "/" && this.text !== "") {
-      this.setAlert({
-        status: true,
-        color: this.color,
-        text: this.text,
-      });
-    }
-
+    // if (this.$route.path === "/" && this.text !== "") {
+      if (this.count > 0){
+        this.setAlert({
+          status: true,
+          color: 'success',
+          text: `Jumlah Task Yang Sudah Dikerjakan ${this.finishRead} / ${this.count}`,
+        });
+      }
+    // }
+    
     this.setTitle({});
   },
   methods: {
@@ -279,6 +288,13 @@ export default {
     toTop() {
       this.$vuetify.goTo(0);
     },
+    more() {
+      if((this.countSurah + 20) > this.maxSurah) {
+        this.countSurah = this.maxSurah
+      } else {
+        this.countSurah += 20
+      }
+    }
     // scrollTes() {
     //   const tes = document.querySelector('.tes-scroll');
     //   const position = tes.offsetTop;
@@ -294,6 +310,8 @@ export default {
       text: "alert/text",
       color: "alert/color",
       surat: "surat",
+      count: 'reading/count',
+      finishRead: 'reading/finishRead'
     }),
     totalSurah() {
       return this.surat.length;

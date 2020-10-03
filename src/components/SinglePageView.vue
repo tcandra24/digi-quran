@@ -133,7 +133,6 @@ export default {
     ...mapActions({
       add: 'reading/add',
       change: 'reading/update',
-      setAlert: 'alert/set',
       setTitle: 'set',
       setDialogStatus: 'dialog/setStatus',
     }),
@@ -175,17 +174,6 @@ export default {
             text: this.detailAyat.nama
           })
 
-          let alertMessage;
-          if(this.ayat < this.detailAyat.ayat) {
-            alertMessage = `Anda masih menyelesaikan ${this.ayat} dari ${this.detailAyat.ayat} ayat surat ${this.detailAyat.nama}`
-          } else {
-            alertMessage = `Selamat anda menyelesaikan surat ${this.detailAyat.nama}` 
-          }
-
-          this.setAlert({
-            color: 'success',
-            text: alertMessage
-          })
         }
 
       })

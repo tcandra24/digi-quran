@@ -40,9 +40,10 @@
                     </div>
                     <br>
                     <div>
-                      <v-progress-linear 
+                      <v-progress-linear
                         striped 
                         rounded 
+                        height="6"
                         :value="(parseInt(task.ayat) / parseInt(task.jmlAyat)) * 100"
                       ></v-progress-linear>
                     </div>

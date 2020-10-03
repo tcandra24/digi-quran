@@ -58,6 +58,14 @@ export default {
     readSurah: state => state.readSurah,
     count: (state) => {
       return state.readSurah.length
+    },
+    finishRead: (state) => {
+      return state.readSurah.reduce((accumulator, currentValue) => {
+        if(parseInt(currentValue.jmlAyat) === currentValue.ayat) {
+          accumulator += 1
+        }
+        return accumulator
+      }, 0)
     }
   }
 }
