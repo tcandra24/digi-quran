@@ -155,9 +155,12 @@ export default {
         this.firstAyat = 1
         this.lastAyat = last.ayat >=10 ? 10 : last.ayat
       } else {
-        this.firstAyat = this.checkItem.ayat
-        this.lastAyat = (this.firstAyat + 10) >= last.ayat ? last.ayat : this.firstAyat + 10
+        if (!this.loadingListAyat) {
+          this.firstAyat = this.checkItem.ayat
+          this.lastAyat = (this.firstAyat + 10) >= last.ayat ? last.ayat : this.firstAyat + 10
+        }
       }
+      // console.log(`${this.firstAyat} - ${this.lastAyat}`)
       // this.lastAyat = this.lastAyat > parseInt(this.detailAyat.ayat) ? parseInt(this.detailAyat.ayat) : this.lastAyat
       let url = `/surat/${this.id}/ayat/${this.firstAyat}-${this.lastAyat}`
       this.axios.get(url)
