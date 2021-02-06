@@ -42,6 +42,13 @@
 
       <v-spacer></v-spacer>
 
+      <v-btn 
+        @click="setDialogComponent('search')"
+        icon
+      >
+        <v-icon>mdi-magnify</v-icon>
+      </v-btn>
+
       <v-btn icon @click="setDialogComponent('tasks')">
         <div v-if="count>0">
           <v-badge color="orange" overlap>
@@ -57,7 +64,7 @@
         
       </v-btn>
 
-      <v-text-field 
+      <!-- <v-text-field 
         align-with-title
         slot="extension"
         hide-details
@@ -68,7 +75,7 @@
         solo-inverted
         class="mb-3"
         @click="setDialogComponent('search')"
-      ></v-text-field>
+      ></v-text-field> -->
     </v-app-bar>
 
     <v-app-bar
