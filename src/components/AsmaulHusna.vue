@@ -25,13 +25,6 @@
           </v-list-item>
         </template>
       </v-list>
-      <!-- <div class="text-center py-5">
-        <v-pagination 
-          v-model="page" 
-          :length="Math.ceil(asmaul_husna.length / perPage)"
-          circle
-          ></v-pagination>
-      </div> -->
     </v-container>
     </div>
   </v-card>
@@ -50,11 +43,6 @@ export default {
       this.$emit("closed", false);
     }
   },
-  // computed: {
-  //   pagingData(){
-  //     return this.asmaul_husna.slice((this.page - 1) * this.perPage, this.page * this.perPage)
-  //   }
-  // }
 }
 </script>
 

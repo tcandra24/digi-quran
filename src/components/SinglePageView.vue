@@ -49,7 +49,7 @@
         >
           <p
             v-html="isiAyatAr.teks"
-            class="text-center headline height-line"
+            class="text-center headline height-line text-h4"
           >  
           </p>
           <p
@@ -125,8 +125,6 @@ export default {
   computed: {
     ...mapGetters({
       readSurah: 'reading/readSurah',
-      dialogStatus : 'dialog/status',
-      currentComponent : 'dialog/component'
     })
   },
   methods: {
@@ -134,7 +132,6 @@ export default {
       add: 'reading/add',
       change: 'reading/update',
       setTitle: 'set',
-      setDialogStatus: 'dialog/setStatus',
     }),
     go() {
       let { id } = this.$route.params
@@ -175,7 +172,6 @@ export default {
           })
 
         }
-
       })
       .catch((responses) => {
         let { error } = responses
@@ -232,9 +228,6 @@ export default {
     }
   },
   mounted() {
-    if (this.dialogStatus === true && this.currentComponent === 'search'){
-      this.setDialogStatus(false)
-    }
     this.go()
   }
 }

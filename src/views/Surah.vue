@@ -37,29 +37,52 @@
       >
       </v-card-text>
     </v-card>
-
-    <div>
-      <v-col class="text-right">
-        <v-btn-toggle
-          rounded
-          dense
-          v-model="mode.index"
-          v-if="detailSurah.nama"
-        >
-          <v-btn 
-            @click="toogleSingleView"
-          >
-            <v-icon>mdi-application</v-icon>
-          </v-btn>
-          <v-btn 
-            @click="toogleListView"
-          >
-            <v-icon>mdi-format-list-bulleted-square</v-icon>
-          </v-btn>
-        </v-btn-toggle>
-      </v-col>
-    </div>
     <component :is="mode.component" @detail="GetDetailSurah" ref="childComponent"></component>
+    <v-card id="create">
+      <v-speed-dial
+        v-model="fab"
+        bottom
+        right
+        direction="left"
+        :open-on-hover="false"
+        transition="slide-y-reverse-transition"
+        class="mb-10"
+      >
+        <template v-slot:activator>
+          <v-btn
+            v-model="fab"
+            color="indigo"
+            dark
+            fab
+          >
+            <v-icon v-if="fab">
+              mdi-close
+            </v-icon>
+            <v-icon v-else>
+              mdi-dots-vertical
+            </v-icon>
+          </v-btn>
+        </template>
+        <v-btn
+          fab
+          dark
+          small
+          color="indigo"
+          @click="toogleSingleView"
+        >
+          <v-icon>mdi-application</v-icon>
+        </v-btn>
+        <v-btn
+          fab
+          dark
+          small
+          color="indigo"
+          @click="toogleListView"
+        >
+          <v-icon>mdi-format-list-bulleted-square</v-icon>
+        </v-btn>
+      </v-speed-dial>
+    </v-card>
   </div>
 </template>
 <script>
@@ -70,7 +93,8 @@ import { mapGetters, mapActions } from 'vuex'
 export default {
   data: () => ({
     btnToogle: 0,
-    detailSurah: {}
+    detailSurah: {},
+    fab: false,
   }),
   components:{
     SingleView: () => import('@/components/SinglePageView.vue'),
@@ -79,7 +103,8 @@ export default {
   mixins:[artiFilter],
   methods: {
     ...mapActions({
-      setMode: 'setMode'
+      setMode: 'setMode',
+      setDialogStatus: 'dialog/setStatus',
     })
     ,
     toogleListView() {
@@ -115,7 +140,9 @@ export default {
     ...mapGetters({
       readSurah: 'reading/readSurah',
       mode: 'mode',
-      surah: 'surat'
+      surah: 'surat',
+      dialogStatus : 'dialog/status',
+      currentComponent : 'dialog/component'
     }),
     choiceSurah(){
       let { id } = this.$route.params
@@ -138,27 +165,22 @@ export default {
       }
     }
   },
-  // watch: {
-  //   '$route.params.id' : function(id) {
-  //     alert(id)
-  //   }
-  // },
   mounted() {
+    if (this.dialogStatus === true && this.currentComponent === 'search'){
+      this.setDialogStatus(false)
+    }
+
     this.$vuetify.goTo(0);
-    // let min = 1
-    // let max = 10
-    // let count = 0
-    // let param = 34
-    // while (count < 30) {
-    //   if ((param - min) * (param - max) <= 0){
-    //     console.log(min)
-    //     console.log(max)
-    //     break
-    //   }
-    //   min += 10
-    //   max += 10
-    //   count ++
-    // }
   }
 }
 </script>
+
+<style scoped>
+#create .v-speed-dial {
+  position: fixed;
+}
+
+#create .v-btn--floating {
+  position: relative;
+}
+</style>

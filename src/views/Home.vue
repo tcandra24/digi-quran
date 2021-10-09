@@ -26,7 +26,7 @@
                     >
                       <v-col
                         class="pa-5"
-                        style="background:#6f6c6c ;opacity:0.5"
+                        style="background:#6f6c6c ;opacity:0.5;"
                         v-if="item.isImageLoaded === true"
                       >
                         <div class="subtitle-1 text-justify">

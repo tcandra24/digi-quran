@@ -2,27 +2,16 @@
   <div>
     <v-card 
       v-if="detailAyat.nama"
-      outlined>
+      outlined
+      class="mt-5"
+    >
       <v-card-text>
         <v-sheet v-if="loading">
           <v-skeleton-loader
             height="94"
             type="list-item-three-line"
-          >
-          </v-skeleton-loader>
-          <v-skeleton-loader
-            height="94"
-            type="list-item-three-line"
-          >
-          </v-skeleton-loader>
-          <v-skeleton-loader
-            height="94"
-            type="list-item-three-line"
-          >
-          </v-skeleton-loader>
-          <v-skeleton-loader
-            height="94"
-            type="list-item-three-line"
+            v-for="(index) in 5"
+            :key="index"
           >
           </v-skeleton-loader>
         </v-sheet>
@@ -73,14 +62,14 @@
               <v-list-item
                 v-for="(list, i) in listSurah"
                 :key="i"
+                :id="list.ayat"
                 class="text-right"
               >
                 <v-list-item-content>
                   <v-list-item-title 
                     class="title__text headline grey--text text--darken-2 height-line"
-                    :id="list.ayat"
                   >
-                    {{ list.arab }} ({{ list.ayat }})
+                    <span class="text-h4"> {{ list.arab }} </span> ({{ list.ayat }})
                   </v-list-item-title>
                   <v-list-item-subtitle class="subtitle__text mt-3" v-html="list.ind"></v-list-item-subtitle>
                   <v-list-item-subtitle class="subtitle__text mt-2 ">{{list.arti}}</v-list-item-subtitle>
@@ -104,6 +93,14 @@
         </div>
       </v-card-text>
     </v-card>
+    <v-row class="my-14"> 
+      <v-col cols="12">
+      </v-col>
+    </v-row>
+    <v-row class="my-14"> 
+      <v-col cols="12">
+      </v-col>
+    </v-row>
   </div>
 </template>
 <script>
@@ -129,8 +126,6 @@ export default {
   computed: {
     ...mapGetters({
       readSurah: 'reading/readSurah',
-      dialogStatus : 'dialog/status',
-      currentComponent : 'dialog/component',
       surah: 'surat'
     })
   },
@@ -139,7 +134,6 @@ export default {
       add: 'reading/add',
       change: 'reading/update',
       setTitle: 'set',
-      setDialogStatus: 'dialog/setStatus',
     }),
     go () {
       this.numberIdSurah = []
@@ -160,8 +154,6 @@ export default {
           this.lastAyat = (this.firstAyat + 10) >= last.ayat ? last.ayat : this.firstAyat + 10
         }
       }
-      // console.log(`${this.firstAyat} - ${this.lastAyat}`)
-      // this.lastAyat = this.lastAyat > parseInt(this.detailAyat.ayat) ? parseInt(this.detailAyat.ayat) : this.lastAyat
       let url = `/surat/${this.id}/ayat/${this.firstAyat}-${this.lastAyat}`
       this.axios.get(url)
       .then((response) => {
@@ -191,7 +183,7 @@ export default {
             this.loadingListAyat = false
           }
 
-          for(let i = 0; i < this.lastAyat - 1; i++){
+          for(let i = 0; i < this.lastAyat ; i++){
             this.numberIdSurah[i] = i + 1
           }
 
@@ -209,44 +201,28 @@ export default {
       })
     },
     elementInViewport(el) {
-      let top = el.offsetTop;
-      let height = el.offsetHeight;
-
-      while(el.offsetParent) {
-        el = el.offsetParent;
-        top += el.offsetTop;
+      if (el) {
+        let top = el.offsetTop
+  
+        while(el.offsetParent) {
+          el = el.offsetParent
+          top += el.offsetTop
+        }
+        const batas = window.pageYOffset + window.innerHeight / 2
+        return top <= batas
       }
-
-      return (
-        top >= window.pageYOffset &&
-        (top + height) <= (window.pageYOffset + window.innerHeight)
-      );
     },
     handleScroll() {
-      // let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight
-      // let offsetHeight = document.documentElement.offsetHeight
-
       this.numberIdSurah.find(number => {
-        if (number >= this.firstAyat && number <= this.lastAyat ){
+        if (number > this.firstAyat && number <= this.lastAyat ){
           const el = document.getElementById(number);
           if(this.elementInViewport(el)) {
-            // console.log(number)
             this.scrollPosition = number
+
+            this.saveState()
           }
         }
       });
-
-      // if (bottomOfWindow == offsetHeight) {
-      //   if(this.lastAyat < parseInt(this.detailAyat.ayat)){
-      //     this.loadingListAyat = true
-      //     this.lastAyat = this.lastAyat < parseInt(this.detailAyat.ayat) ? this.lastAyat += 10 : parseInt(this.detailAyat.ayat) 
-      //     this.firstAyat = this.lastAyat > 10 ? this.firstAyat += 10 : this.firstAyat
-      //     // console.log(`${this.firstAyat} - ${this.lastAyat}`)
-      //     this.go()
-      //   }
-      // }
-
-      this.saveState()
     },
     saveState() {
       this.change({
@@ -262,7 +238,6 @@ export default {
         this.loadingListAyat = true
         this.lastAyat = this.lastAyat < parseInt(this.detailAyat.ayat) ? this.lastAyat += 10 : parseInt(this.detailAyat.ayat) 
         this.firstAyat = this.lastAyat > 10 ? this.firstAyat += 10 : this.firstAyat
-        // console.log(`${this.firstAyat} - ${this.lastAyat}`)
         this.go()
       }
     },
@@ -272,9 +247,7 @@ export default {
       .then((response) => {
         return response.json()
       }).then((json) => {
-        // console.log(json)
         json.forEach((data) => {
-          // console.log(data.nomor)
           if (parseInt(data.nomor) < parseInt(this.firstAyat)) {
             this.previousSurah.push({
               ayat: data.nomor,
@@ -286,8 +259,6 @@ export default {
           }
           
         })
-        // this.listSurah.unshift(...this.previousSurah)
-        // this.numberIdSurah.unshift(this.numberIdSurahPrev)
         this.loadingListAyat = false
       })
     },
@@ -296,11 +267,6 @@ export default {
     }
   },
   mounted () {
-    // this.loading = true
-    if (this.dialogStatus === true && this.currentComponent === 'search'){
-      this.setDialogStatus(false)
-    }
-
     this.go()
   }
 }

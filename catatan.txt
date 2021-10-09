@@ -1,0 +1,19 @@
+let top = el.offsetTop;
+// let height = el.offsetHeight;
+
+while(el.offsetParent) {
+  el = el.offsetParent;
+  top += el.offsetTop;
+}
+// console.log(`Top: ${top}`)
+// console.log(`Height: ${height}`)
+// console.log(`pageYOffset: ${window.pageYOffset}`)
+// console.log(`innerHeight: ${window.innerHeight}`)
+// pageYOffset = Batas atas
+// window.innerHeight = Tinggi halaman Web
+// return (
+//   top >= window.pageYOffset &&
+//   (top + height) <= (window.pageYOffset + window.innerHeight)
+// );
+const batas = window.pageYOffset + window.innerHeight / 2
+return top <= batas

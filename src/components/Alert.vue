@@ -1,6 +1,9 @@
 <template>
   <div>
     <v-snackbar v-model="alert" :color="color" multi-line top>
+      <span>
+        <v-icon>mdi-calendar-check</v-icon>
+      </span> 
       {{ text }}
       <v-btn dark text @click="close">
         <v-icon>mdi-close-circle</v-icon>

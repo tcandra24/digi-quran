@@ -16,6 +16,7 @@ export default new Vuex.Store({
   plugins:[persistVuex.plugin],
   state: {
     title: '',
+    drawer: false,
     surat: [],
     mode: {
       name: 'single',
@@ -52,6 +53,9 @@ export default new Vuex.Store({
       state.mode.name = value.name
       state.mode.component = value.component
       state.mode.index = value.index
+    },
+    setDrawer: (state, value) => {
+      state.drawer = value 
     }
   },
   actions: {
@@ -66,12 +70,16 @@ export default new Vuex.Store({
     },
     setMode: ({ commit }, value) => {
       commit('setMode', value)
+    },
+    setDrawer: ({ commit }, value) => {
+      commit('setDrawer', value)
     }
   },
   getters: {
     title: state => state.title,
     surat: state => state.surat,
-    mode: state => state.mode
+    mode: state => state.mode,
+    drawer: state => state.drawer
   },
   modules: {
     reading,
