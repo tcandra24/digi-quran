@@ -4,131 +4,22 @@
       <v-layout wrap>
         <v-flex md>
           <v-card>
-            <template>
-              <v-carousel
-                cycle
-                delimiter-icon="mdi-minus"
-                hide-delimiter-background
-                interval="5000"
-                :show-arrows="false"
-              >
-                <v-carousel-item
-                  v-for="(item, i) in itemImages"
-                  :key="i"
-                  :aspect-ratio="16 / 9"
-                >
-                  <v-sheet height="100%" color="primary">
-                    <v-img
-                      :src="`${imageUrl}/${item.src}`"
-                      :aspect-ratio="16 / 9"
-                      height="100%"
-                      @load="item.isImageLoaded = true"
-                    >
-                      <v-col
-                        class="pa-5"
-                        style="background:#6f6c6c ;opacity:0.5;"
-                        v-if="item.isImageLoaded === true"
-                      >
-                        <div class="subtitle-1 text-justify">
-                          {{ item.quote }}
-                          <br />
-                          {{ item.from }}
-                        </div>
-                      </v-col>
-                      <v-row
-                        class="fill-height"
-                        align="center"
-                        justify="center"
-                        v-else
-                      >
-                        <div class="subtitle-1 text-justify">
-                          <div class="display-1">Loading...</div>
-                        </div>
-                      </v-row>
-                    </v-img>
-                  </v-sheet>
-                </v-carousel-item>
-              </v-carousel>
-            </template>
+            <carousel-bar />
           </v-card>
         </v-flex>
       </v-layout>
     </v-container>
-    <v-container fluid>
-      <div class="text-left indigo--text">
-        Asmaul Husna <v-icon color="indigo">mdi-chevron-right</v-icon>
-      </div>
-      <v-divider></v-divider>
-      <v-layout wrap class="pt-5">
-        <v-flex md>
-          <v-card>
-            <template>
-              <v-carousel
-                cycle
-                delimiter-icon="mdi-minus"
-                hide-delimiter-background
-                interval="4000"
-                :show-arrows="false"
-                height="150"
-              >
-                <v-carousel-item
-                  v-for="(a, i) in asmaul_husna.slice(0, 7)"
-                  :key="i"
-                  :aspect-ratio="16 / 9"
-                  @click="setDialogComponent('asmaul-husna')"
-                >
-                  <v-sheet height="100%" color="primary">
-                    <v-row class="fill-height pt-5" justify="center">
-                      <div class="subtitle-1 text-center">
-                        {{ a.latin }} ({{ a.arab }})
-                        <br />
-                        {{ a.arti }}
-                      </div>
-                    </v-row>
-                  </v-sheet>
-                </v-carousel-item>
-                <v-carousel-item
-                  :aspect-ratio="16 / 9"
-                  @click="setDialogComponent('asmaul-husna')"
-                >
-                  <v-sheet height="100%" color="primary">
-                    <v-row class="fill-height pt-5" justify="center">
-                      <div class="subtitle-1 text-center">
-                        Selengkapnya
-                        <v-icon>mdi-arrow-right-circle-outline</v-icon>
-                      </div>
-                    </v-row>
-                  </v-sheet>
-                </v-carousel-item>
-              </v-carousel>
-            </template>
-          </v-card>
-        </v-flex>
-        <v-fab-transition>
-          <v-btn
-            v-scroll="onScroll"
-            v-show="fab"
-            fab
-            dark
-            fixed
-            bottom
-            right
-            color="indigo"
-            class="mb-10"
-            @click="toTop"
-          >
-            <v-icon>mdi-arrow-up</v-icon>
-          </v-btn>
-        </v-fab-transition>
-      </v-layout>
+    <v-container 
+      v-for="(content, index) in carouselContent"
+      :key="index" 
+      fluid 
+    >
+      <carousel-content  
+        :content="content"
+        @setDialog="setDialogComponent" 
+      />
     </v-container>
     <v-container class="ma-0 pa-2" grid-list-sm v-if="surat">
-      <!-- Tes Scroll -->
-      <!-- <button @click="scrollTes">Tes</button>
-      <div class="tes-scroll">
-        Tess2
-      </div> -->
-      <!-- Tes Scroll -->
       <div class="text-left indigo--text">
         Semua Surat ({{ totalSurah }})
         <v-icon color="indigo">mdi-chevron-right</v-icon>
@@ -174,64 +65,78 @@
         </v-flex>
       </v-layout>
       <v-col class="text-center">
-        <v-btn text color="indigo" @click="more" v-if="countSurah < this.maxSurah">
+        <v-btn
+          text 
+          color="indigo" 
+          @click="more" 
+          v-if="countSurah < this.maxSurah"
+        >
           More..
         </v-btn>
       </v-col>
+      <v-fab-transition>
+        <v-btn
+          v-scroll="onScroll"
+          v-show="fab"
+          fab
+          dark
+          fixed
+          bottom
+          right
+          color="indigo"
+          class="mb-10"
+          @click="toTop"
+        >
+          <v-icon>mdi-arrow-up</v-icon>
+        </v-btn>
+      </v-fab-transition>
     </v-container>
   </div>
 </template>
-
 <script>
 // @ is an alias to /src
-import { mapActions, mapGetters } from "vuex";
-import asmaulHusna from "@/data/asmaul-husna";
-import { artiFilter } from "@/mixins/artiFilter";
+import { mapActions, mapGetters } from "vuex"
+import asmaulHusna from "@/data/asmaul-husna"
+import nabi from "@/data/nabi-nabi"
+import malaikat from "@/data/malaikat"
+import { artiFilter } from "@/mixins/artiFilter"
 
 export default {
   name: "Home",
   mixins: [artiFilter],
+  components: {
+    CarouselBar: () => import('@/components/CarouselBar.vue'),
+    CarouselContent :() => import('@/components/CarouselContent.vue')
+  },
+  metaInfo: {
+    title: 'Home'
+  },
   data: () => ({
     asmaul_husna: asmaulHusna,
     countSurah: 20,
     maxSurah: 114,
-    itemImages: [
-      {
-        src: "view-1.jpg",
-        quote: "Sesungguhnya Kami telah memberikan kepadamu nikmat yang banyak",
-        from: "QS Al-Kautsar : 1",
-        isImageLoaded: false,
-      },
-      {
-        src: "view-2.jpg",
-        quote: "Maka nikmat Tuhanmu yang manakah yang kamu dustakan?",
-        from: "QS Ar-Rahman : 13",
-        isImageLoaded: false,
-      },
-      {
-        src: "view-3.jpg",
-        quote:
-          "Sesungguhnya pada pertukaran malam dan siang itu dan pada apa yang diciptakan Allah di langit dan di bumi, benar-benar terdapat tanda-tanda (kekuasaan-Nya) bagi orang-orang yang bertakwa.",
-        from: "QS Yunus : 6",
-        isImageLoaded: false,
-      },
-      {
-        src: "view-4.jpg",
-        quote:
-          "Sungguh kami ciptakan manusia itu pada perwujudan yang lebih baik.",
-        from: "QS At-Tin : 4",
-        isImageLoaded: false,
-      },
-      {
-        src: "view-5.jpg",
-        quote:
-          "Dan sesungguhnya telah Kami muliakan anak cucu Adam, Kami angkat mereka di daratan dan di lautan, Kami beri mereka rizki yang baik-baik dan Kami lebihkan mereka dengan kelebihan yang sempurna atas kebanyakan mahluk-mahluk yang telah Kami ciptakan.",
-        from: "QS Al-Isra : 70",
-        isImageLoaded: false,
-      },
-    ],
     isActive: false,
     fab: false,
+    carouselContent: [
+      {
+        title: 'Asmaul Husna (99)',
+        component: 'asmaul-husna',
+        color: "primary",
+        data: asmaulHusna
+      },
+      {
+        title: 'Nama - Nama Nabi & Rasul (25)',
+        component: 'nabi-nabi',
+        color: "brown darken-2",
+        data: nabi
+      },
+      {
+        title: 'Nama - Nama Malaikat (10)',
+        component: 'malaikat',
+        color: 'secondary',
+        data: malaikat
+      }
+    ],
   }),
   mounted() {
     this.$vuetify.goTo(0);
@@ -254,21 +159,22 @@ export default {
             this.setSurat(newObj);
           }
         })
-        .catch((responses) => {
-          let { error } = responses;
-          console.log = error;
+        .catch(() => {
+          this.setAlert({
+            status: true,
+            color: 'warning',
+            text: `Terdapat Kesalahan Pada Aplikasi`,
+          });
         });
     }
-    
-    // if (this.$route.path === "/" && this.text !== "") {
+
       if (this.count > 0){
         this.setAlert({
           status: true,
           color: 'success',
-          text: `Jumlah Task Yang Sudah Dikerjakan ${this.finishRead} / ${this.count}`,
+          text: `Task Yang Sudah Dikerjakan ${this.finishRead} / ${this.count}`,
         });
       }
-    // }
     
     this.setTitle({});
   },
@@ -295,15 +201,6 @@ export default {
         this.countSurah += 20
       }
     }
-    // scrollTes() {
-    //   const tes = document.querySelector('.tes-scroll');
-    //   const position = tes.offsetTop;
-    //   const position2 = tes.offsetHeight;
-    //   console.log(`offset Top ${position}`)
-    //   console.log(`offset Height ${position2}`)
-    //   console.log(`innerheight ${window.innerHeight}`)
-    //   console.log(`pageYoffset ${window.pageYOffset}`)
-    // }
   },
   computed: {
     ...mapGetters({

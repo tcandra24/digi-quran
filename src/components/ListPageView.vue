@@ -77,16 +77,14 @@
               </v-list-item>
             </v-list>
             <v-col class="text-center">
-              <v-btn text color="indigo" @click="more" v-if="lastAyat < parseInt(this.detailAyat.ayat)">
-                <div v-if="loadingListAyat">
-                    <v-progress-circular
-                      indeterminate
-                      color="primary"
-                    ></v-progress-circular>
-                </div>
-                <div v-else>
-                  More..
-                </div>
+              <v-btn 
+                :loading="loadingListAyat" 
+                text 
+                color="indigo" 
+                @click="more" 
+                v-if="lastAyat < parseInt(this.detailAyat.ayat)"
+              >
+                More..
               </v-btn>
             </v-col>
           </div>

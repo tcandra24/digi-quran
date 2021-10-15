@@ -57,7 +57,7 @@
                   </v-list-item-action>
                   <v-list-item-action>
                       <v-btn icon small rounded depressed @click="linkTo(task.nomor)">
-                        <v-icon dark color="success">mdi-link</v-icon>
+                        <v-icon dark color="success">mdi-arrow-right-top</v-icon>
                       </v-btn>
                   </v-list-item-action>
                 </div>
@@ -72,21 +72,6 @@
             </template>  
           </v-list>
         </v-container>
-        <!-- <template>
-          <v-layout row justify-center>
-            <v-dialog v-model="dialogConfirm" persistent max-width="350">
-              <v-card>
-                <v-card-title>Surat {{taskDeleteConfirm.nama}} </v-card-title>
-                <v-card-text> Yakin Menghapus Task ? </v-card-text>
-                <v-card-actions>
-                  <v-btn color="error" @click="yes">Yes</v-btn>
-                  <v-spacer></v-spacer>
-                  <v-btn color="primary" @click="no">No</v-btn>
-                </v-card-actions>
-              </v-card>
-            </v-dialog>
-          </v-layout>
-        </template> -->
     </v-card>
 </template>
 <script>

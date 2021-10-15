@@ -91,6 +91,9 @@ import { artiFilter } from '@/mixins/artiFilter'
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
+  metaInfo: {
+    title: 'Surah'
+  },
   data: () => ({
     btnToogle: 0,
     detailSurah: {},

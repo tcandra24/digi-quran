@@ -2,7 +2,7 @@ export default {
   namespaced: true,
   state: {
     status: false,
-    component: 'tasks'
+    component: 'tasks',
   },
   mutations: {
     setStatus: ( state, status ) => {

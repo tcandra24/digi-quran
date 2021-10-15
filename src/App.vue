@@ -5,14 +5,7 @@
         v-model="appDrawer"
         app
       >
-        <v-img :aspect-ratio="16/9" src="https://cdn.vuetifyjs.com/images/parallax/material.jpg">
-          <v-row align="end" class="lightbox white--text pa-2 fill-height">
-            <v-col>
-              <div class="subheading">Jonathan Lee</div>
-              <div class="body-1">heyfromjonathan@gmail.com</div>
-            </v-col>
-          </v-row>
-        </v-img>
+        <v-img :aspect-ratio="16/9" src="https://cdn.vuetifyjs.com/images/parallax/material.jpg"></v-img>
         <v-list>
           <v-list-item 
             link
@@ -125,14 +118,22 @@
 <script>
   import { mapGetters, mapActions } from 'vuex'
   export default {
-    props: {
-      source: String,
-    },
     components: {
       Tasks: () => import('@/components/Tasks.vue'),
       Alert: () => import('@/components/Alert.vue'),
       Search: () => import('@/components/Search.vue'),
-      AsmaulHusna: () => import('@/components/AsmaulHusna.vue')
+      AsmaulHusna: () => import('@/components/AsmaulHusna.vue'),
+      NabiNabi: () => import('@/components/NabiNabi.vue'),
+      Malaikat: () => import('@/components/Malaikat.vue')
+    },
+    metaInfo: {
+      titleTemplate: '%s | Digital Qur\'an',
+      meta: [
+        {
+          name: 'dicoding:email',
+          content: 'tcandra007@gmail.com'
+        }
+      ]
     },
     data: () => ({
       menus: [
@@ -142,7 +143,7 @@
       socialMedia: [
         { icon: 'mdi-facebook' },
         { icon: 'mdi-instagram' }
-      ]
+      ],
     }),
     computed: {
       isHome() {

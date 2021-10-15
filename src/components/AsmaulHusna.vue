@@ -35,8 +35,6 @@ export default {
   name: "asmaul-husna",
   data: () => ({
     asmaul_husna: asmaulHusna,
-    perPage: 20,
-    page: 1,
   }),
   methods: {
     close() {
