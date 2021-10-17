@@ -19,7 +19,12 @@
         @setDialog="setDialogComponent" 
       />
     </v-container>
-    <v-container class="ma-0 pa-2" grid-list-sm v-if="surat">
+    <v-container 
+      class="ma-0 pa-2" 
+      grid-list-sm 
+      fluid 
+      v-if="surat"
+    >
       <div class="text-left indigo--text">
         Semua Surat ({{ totalSurah }})
         <v-icon color="indigo">mdi-chevron-right</v-icon>

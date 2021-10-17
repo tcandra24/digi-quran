@@ -27,7 +27,11 @@
       >
         Surat tidak ditemukan
       </v-alert>
-      <v-container class="ma-0 pa-2" grid-list-sm>
+      <v-container 
+        class="ma-0 pa-2" 
+        fluid 
+        grid-list-sm
+      >
         <v-layout wrap>
           <v-flex v-for="(surah, index) in getSurat" :key="`surah-`+index" md>
             <v-card 

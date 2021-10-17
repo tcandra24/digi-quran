@@ -17,29 +17,22 @@
               height="150"
             >
               <v-carousel-item
-                v-for="(a, i) in content.data.slice(0, 7)"
+                v-for="(a, i) in content.data.slice(0, 5)"
                 :key="i"
-                @click="setDialog(content.component)"
+                @click.stop="setDialog(content.component)"
               >
                 <v-sheet height="100%" :color="content.color">
                   <v-row class="fill-height pt-5" justify="center">
                     <v-col col="6">
                       <div class="title text-center mx-auto" style="max-width: 700px;">
                         {{ a.latin }} ({{ a.arab }})
-                        <v-divider></v-divider>
-                        <p 
-                          class="d-inline-block text-truncate" 
-                          style="max-width: 500px;"
-                        >
-                          {{ a.arti }}
-                        </p> 
                       </div>
                     </v-col>
                   </v-row>
                 </v-sheet>
               </v-carousel-item>
               <v-carousel-item
-                @click="setDialog(content.component)"
+                @click.stop="setDialog(content.component)"
               >
                 <v-sheet height="100%" :color="content.color">
                   <v-row class="fill-height pt-5" justify="center">
