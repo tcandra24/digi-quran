@@ -25,9 +25,8 @@
       fluid 
       v-if="surat"
     >
-      <div class="text-left indigo--text">
-        Semua Surat ({{ totalSurah }})
-        <v-icon color="indigo">mdi-chevron-right</v-icon>
+      <div class="text-left indigo--text mb-3 title">
+        Semua Surah ({{ surat.length }})
       </div>
       <v-divider></v-divider>
       <v-layout wrap>
@@ -37,11 +36,20 @@
           md
           class="pt-5"
         >
-          <v-card :to="'/surah/' + surah.nomor" outlined>
+          <v-card 
+            :to="'/surah/' + surah.nomor" 
+            outlined 
+            elevation="2"
+          >
             <v-card-title class="fill-height align-end">
-              {{ surah.nomor }} . {{ surah.nama }} ( {{ surah.asma }} )
+              <v-avatar size="40" :color="bgColor[Math.floor(Math.random() * bgColor.length)]" class="white--text">
+                {{ surah.nomor }}
+              </v-avatar>
+              <p class="ml-2 my-1">
+                {{ surah.nama }} ( {{ surah.asma }} )
+              </p>
             </v-card-title>
-            <v-card-subtitle>
+            <v-card-subtitle class="ml-12">
               {{ artiSurah(surah.arti) }} - {{ surah.ayat }} Ayat
             </v-card-subtitle>
             <v-card-actions>
@@ -124,19 +132,19 @@ export default {
     fab: false,
     carouselContent: [
       {
-        title: 'Asmaul Husna (99)',
+        title: 'Asmaul Husna',
         component: 'asmaul-husna',
         color: "primary",
         data: asmaulHusna
       },
       {
-        title: 'Nama - Nama Nabi & Rasul (25)',
+        title: 'Nama - Nama Nabi & Rasul',
         component: 'nabi-nabi',
         color: "brown darken-2",
         data: nabi
       },
       {
-        title: 'Nama - Nama Malaikat (10)',
+        title: 'Nama - Nama Malaikat',
         component: 'malaikat',
         color: 'secondary',
         data: malaikat
@@ -213,11 +221,9 @@ export default {
       color: "alert/color",
       surat: "surat",
       count: 'reading/count',
-      finishRead: 'reading/finishRead'
+      finishRead: 'reading/finishRead',
+      bgColor: 'bgColor'
     }),
-    totalSurah() {
-      return this.surat.length;
-    },
   },
 };
 </script>

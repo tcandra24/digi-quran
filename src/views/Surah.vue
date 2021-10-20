@@ -92,7 +92,7 @@ import { mapGetters, mapActions } from 'vuex'
 
 export default {
   metaInfo: {
-    title: 'Surah'
+    title: 'Surah '
   },
   data: () => ({
     btnToogle: 0,
@@ -159,7 +159,7 @@ export default {
       })
 
       objectNext = this.surah.find((data) => {
-        return parseInt(data.nomor) === next && next < this.surah.length
+        return parseInt(data.nomor) === next && next <= this.surah.length
       })
 
       return {

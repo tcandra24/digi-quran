@@ -1,30 +1,30 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "5332bc316e3911ad1779",
-    "url": "/digi-quran/css/chunk-0e48d0c8.24a95513.css"
+    "revision": "9516df9e3800911e12f1",
+    "url": "/digi-quran/css/chunk-0553450f.0ca6bbed.css"
   },
   {
-    "revision": "7c47ba1e0473ef1ea7ea",
-    "url": "/digi-quran/css/chunk-33d044ed.08991ddf.css"
+    "revision": "c60e4a251d060177c48a",
+    "url": "/digi-quran/css/chunk-2d2061e2.950c0de1.css"
   },
   {
-    "revision": "e329641764882317c1dd",
-    "url": "/digi-quran/css/chunk-4a4493fa.a89425aa.css"
+    "revision": "1360d2291569c4a239b4",
+    "url": "/digi-quran/css/chunk-31c85aa4.f4de5902.css"
   },
   {
-    "revision": "3f987af8760490dd646d",
-    "url": "/digi-quran/css/chunk-6ca178db.60443766.css"
+    "revision": "25a544556bc18928594e",
+    "url": "/digi-quran/css/chunk-6469ad40.c522418e.css"
   },
   {
-    "revision": "1f99e1b33f750ba27139",
-    "url": "/digi-quran/css/chunk-87918ada.cc8111af.css"
+    "revision": "92b071a2e77ca42280be",
+    "url": "/digi-quran/css/chunk-73b5c7f9.550550f3.css"
   },
   {
-    "revision": "8910609be012bc4fe39a",
-    "url": "/digi-quran/css/chunk-e605413a.d40b721a.css"
+    "revision": "60aa466b006c70883195",
+    "url": "/digi-quran/css/chunk-d2ebb534.8a62f285.css"
   },
   {
-    "revision": "d8485437141c6b4dbadc",
+    "revision": "8f156d37f50b92135a2f",
     "url": "/digi-quran/css/chunk-vendors.68d824fd.css"
   },
   {
@@ -64,20 +64,20 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/digi-quran/img/vuetify.c7ad3d2c.png"
   },
   {
-    "revision": "f188de60bf71d4d7a170b53e0bbad607",
+    "revision": "302ea3853a3927250948c947f852463b",
     "url": "/digi-quran/index.html"
   },
   {
-    "revision": "dd36352c90810b98a309",
-    "url": "/digi-quran/js/about.2697f7f5.js"
+    "revision": "d639d8693883e06d6181",
+    "url": "/digi-quran/js/about.e0f4f406.js"
   },
   {
-    "revision": "0e422ac17496db47218a",
-    "url": "/digi-quran/js/app.50e1f603.js"
+    "revision": "2edb32ccee13c68ac7c4",
+    "url": "/digi-quran/js/app.97aa6fba.js"
   },
   {
-    "revision": "5332bc316e3911ad1779",
-    "url": "/digi-quran/js/chunk-0e48d0c8.88bc2e79.js"
+    "revision": "9516df9e3800911e12f1",
+    "url": "/digi-quran/js/chunk-0553450f.d035efa5.js"
   },
   {
     "revision": "981143f3acd919c49505",
@@ -92,36 +92,36 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/digi-quran/js/chunk-2d0e943a.88702fa7.js"
   },
   {
+    "revision": "c60e4a251d060177c48a",
+    "url": "/digi-quran/js/chunk-2d2061e2.02103819.js"
+  },
+  {
     "revision": "9b7e1d5874a20788d53d",
     "url": "/digi-quran/js/chunk-2d215faa.e29311d0.js"
   },
   {
-    "revision": "868005072c95b56bbeec",
-    "url": "/digi-quran/js/chunk-2d22d445.1fbd22da.js"
+    "revision": "745331ba1ad64685e156",
+    "url": "/digi-quran/js/chunk-2d22d445.fff26e3f.js"
   },
   {
-    "revision": "7c47ba1e0473ef1ea7ea",
-    "url": "/digi-quran/js/chunk-33d044ed.98b4a86f.js"
+    "revision": "1360d2291569c4a239b4",
+    "url": "/digi-quran/js/chunk-31c85aa4.411a5bb0.js"
   },
   {
-    "revision": "e329641764882317c1dd",
-    "url": "/digi-quran/js/chunk-4a4493fa.0f4172ba.js"
+    "revision": "25a544556bc18928594e",
+    "url": "/digi-quran/js/chunk-6469ad40.3f4f7ba4.js"
   },
   {
-    "revision": "3f987af8760490dd646d",
-    "url": "/digi-quran/js/chunk-6ca178db.9794d356.js"
+    "revision": "92b071a2e77ca42280be",
+    "url": "/digi-quran/js/chunk-73b5c7f9.5ab43c46.js"
   },
   {
-    "revision": "1f99e1b33f750ba27139",
-    "url": "/digi-quran/js/chunk-87918ada.c7fdd877.js"
+    "revision": "60aa466b006c70883195",
+    "url": "/digi-quran/js/chunk-d2ebb534.8600d33c.js"
   },
   {
-    "revision": "8910609be012bc4fe39a",
-    "url": "/digi-quran/js/chunk-e605413a.adb735b5.js"
-  },
-  {
-    "revision": "d8485437141c6b4dbadc",
-    "url": "/digi-quran/js/chunk-vendors.b4329256.js"
+    "revision": "8f156d37f50b92135a2f",
+    "url": "/digi-quran/js/chunk-vendors.c3355db4.js"
   },
   {
     "revision": "f0d53ca8b36f1eca0d5b3549f7ed5383",

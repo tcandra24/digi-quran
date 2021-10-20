@@ -11,7 +11,7 @@
       <v-list two-line>
         <template v-for="(a, index) in asmaul_husna">
           <v-list-item :key="index">
-            <v-list-item-avatar color="#f4f4f4">
+            <v-list-item-avatar class="white--text title" :color="bgColor[Math.floor(Math.random() * bgColor.length)]">
               {{ a.urutan }}
             </v-list-item-avatar>
             <v-list-item-content class="mx-auto">
@@ -30,7 +30,8 @@
   </v-card>
 </template>
 <script>
-import asmaulHusna from "@/data/asmaul-husna";
+import asmaulHusna from "@/data/asmaul-husna"
+import { mapGetters } from 'vuex'
 export default {
   name: "asmaul-husna",
   data: () => ({
@@ -41,6 +42,11 @@ export default {
       this.$emit("closed", false);
     }
   },
+  computed: {
+    ...mapGetters({
+      bgColor: 'bgColor'
+    }),
+  }
 }
 </script>
 

@@ -5,7 +5,7 @@
         v-model="appDrawer"
         app
       >
-        <v-img :aspect-ratio="16/9" src="https://cdn.vuetifyjs.com/images/parallax/material.jpg"></v-img>
+        <v-img :aspect-ratio="16/8" src="https://cdn.wallpapersafari.com/24/78/ByQ3Zh.jpg"></v-img>
         <v-list>
           <v-list-item 
             link
@@ -101,6 +101,8 @@
             class="mx-1 grey--text" text
             v-for="(social, index) in socialMedia"
             :key="index" 
+            :href="social.link"
+            target="_blank"
           >
             <v-icon size="24px">{{social.icon}}</v-icon>
           </v-btn>
@@ -137,12 +139,26 @@
     },
     data: () => ({
       menus: [
-        { title: 'Home', icon: 'mdi-home-outline', route: '/' },
-        { title: 'About', icon: 'mdi-information-outline', route: '/about' }
+        { 
+          title: 'Home', 
+          icon: 'mdi-home-outline', 
+          route: '/' 
+        },
+        { 
+          title: 'About', 
+          icon: 'mdi-information-outline', 
+          route: '/about' 
+        }
       ],
       socialMedia: [
-        { icon: 'mdi-facebook' },
-        { icon: 'mdi-instagram' }
+        { 
+          icon: 'mdi-facebook', 
+          link: 'https://www.facebook.com/tito.candra.71' 
+        },
+        { 
+          icon: 'mdi-instagram', 
+          link: 'https://www.instagram.com/titocandp/' 
+        }
       ],
     }),
     computed: {

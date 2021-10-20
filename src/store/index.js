@@ -22,7 +22,16 @@ export default new Vuex.Store({
       name: 'single',
       component: 'single-view',
       index: 0
-    }
+    },
+    bgArray: [
+      'purple lighten-2',
+      'red lighten-2',
+      'indigo lighten-2',
+      'blue lighten-2',
+      'teal lighten-2',
+      'green lighten-2',
+      'orange lighten-2'
+    ]
   },
   mutations: {
     set: (state, value) => {
@@ -79,7 +88,8 @@ export default new Vuex.Store({
     title: state => state.title,
     surat: state => state.surat,
     mode: state => state.mode,
-    drawer: state => state.drawer
+    drawer: state => state.drawer,
+    bgColor: state => state.bgArray
   },
   modules: {
     reading,

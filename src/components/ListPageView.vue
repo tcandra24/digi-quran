@@ -17,6 +17,14 @@
         </v-sheet>
         <div v-else>
           <div class="previous">
+            <v-row no-gutters>
+              <v-col>
+                <p class="mb-5">
+                  Total {{ detailAyat.ayat }} Ayat
+                </p>
+              </v-col>
+            </v-row>
+            <br>
             <v-list
               three-line
             >

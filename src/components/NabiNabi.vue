@@ -11,16 +11,13 @@
       <v-list two-line>
         <template v-for="(n, index) in nabi">
           <v-list-item :key="index">
-            <v-list-item-avatar color="#f4f4f4">
+            <v-list-item-avatar class="white--text title" :color="bgColor[Math.floor(Math.random() * bgColor.length)]">
               {{ n.urutan }}
             </v-list-item-avatar>
             <v-list-item-content class="mx-auto">
-              <v-list-item-title class="headline">
+              <v-list-item-title class="headline" width="100">
                 {{ n.latin }} ({{ n.arab }})
               </v-list-item-title>
-              <v-list-item-subtitle width="100">
-                {{ n.arti }}
-              </v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
         </template>
@@ -30,7 +27,8 @@
   </v-card>
 </template>
 <script>
-import nabi from "@/data/nabi-nabi";
+import nabi from "@/data/nabi-nabi"
+import { mapGetters } from 'vuex'
 export default {
   name: "nabi-nabi",
   data: () => ({
@@ -41,6 +39,11 @@ export default {
       this.$emit("closed", false);
     }
   },
+  computed: {
+    ...mapGetters({
+      bgColor: 'bgColor'
+    }),
+  }
 }
 </script>
 

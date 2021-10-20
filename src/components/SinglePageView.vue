@@ -19,30 +19,11 @@
           <v-skeleton-loader
             ref="skeleton"
             type="text"
-            class="mx-auto"
-          ></v-skeleton-loader>
-          <v-skeleton-loader
-            ref="skeleton"
-            type="text"
-            class="mx-auto"
-          ></v-skeleton-loader>
-          <v-skeleton-loader
-            ref="skeleton"
-            type="text"
-            class="mx-auto"
-          ></v-skeleton-loader>
-          <br>
-          <v-skeleton-loader
-            ref="skeleton"
-            type="text"
-            class="mx-auto"
-          ></v-skeleton-loader>
-          <br>
-          <v-skeleton-loader
-            ref="skeleton"
-            type="text"
-            class="mx-auto"
-          ></v-skeleton-loader>
+            class="mx-auto mb-2"
+            v-for="(index) in 5"
+            :key="index"
+          >
+          </v-skeleton-loader>
         </v-sheet>
         <div
           v-else
