@@ -5,7 +5,7 @@
         v-model="appDrawer"
         app
       >
-        <v-img :aspect-ratio="16/8" src="https://cdn.wallpapersafari.com/24/78/ByQ3Zh.jpg"></v-img>
+        <v-img :aspect-ratio="16/8" src="https://cdn.vuetifyjs.com/images/backgrounds/bg-2.jpg"></v-img>
         <v-list>
           <v-list-item 
             link
